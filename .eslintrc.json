@@ -14,6 +14,7 @@
         "array-bracket-newline": "error",
         "array-bracket-spacing": "error",
         "array-callback-return": "error",
+        "no-undef": "warn",
         "array-element-newline": "error",
         "arrow-body-style": "error",
         "arrow-parens": "error",

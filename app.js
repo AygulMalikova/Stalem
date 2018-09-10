@@ -7,9 +7,11 @@ var sassMiddleware = require('node-sass-middleware');
 var session = require('express-session');
 var bodyParser = require('body-parser');
 var Admin = require('./models/admin');
+var Picture = require('./models/picture');
 var mongoose = require('mongoose');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
+var multer = require('multer');
 
 var app = express();
 
@@ -91,22 +93,59 @@ app.use('/public', express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/', adminRouter);
 
+
+mongoose.set('useCreateIndex', true);
+
+
+// const multerConfig = {
+//
+//     storage: multer.diskStorage({
+//         //Setup where the user's file will go
+//         destination: function(req, file, next){
+//             next(null, '.');
+//         },
+//
+//         //Then give the file a unique name
+//         filename: function(req, file, next){
+//             console.log(file);
+//             const ext = file.mimetype.split('/')[1];
+//             next(null, file.fieldname + '-' + Date.now() + '.'+ext);
+//         }
+//     }),
+//
+//     //A means of ensuring only images are uploaded.
+//     fileFilter: function(req, file, next){
+//         if(!file){
+//             next();
+//         }
+//         const image = file.mimetype.startsWith('image/');
+//         if(image){
+//             console.log('photo uploaded');
+//             next(null, true);
+//         }else{
+//             console.log("file not supported");
+//
+//             //TODO:  A better message response to user on failure.
+//             return next();
+//         }
+//     }
+// };
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-  next(createError(404));
+    next(createError(404));
 });
 
 // error handler
 app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
+    // set locals, only providing error in development
+    res.locals.message = err.message;
+    res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
+    // render the error page
+    res.status(err.status || 500);
+    res.render('error');
 });
 
-
-
-module.exports = app;
+module.exports.app = app;
+//module.exports.multerConfig = multerConfig;

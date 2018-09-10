@@ -2,6 +2,19 @@ var express = require('express');
 var router = express.Router();
 var passport = require('passport');
 var Admin = require('../models/admin');
+var Pictures = require('../models/picture');
+var multerConfig = require('../app');
+
+var multer = require('multer');
+var storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, 'public/uploads'); // Absolute path. Folder must exist, will not be created for you.
+    },
+    filename: function (req, file, cb) {
+        cb(null, Date.now() + '-' + file.originalname);
+    }
+});
+var upload = multer({ storage: storage });
 
 // Authentication Middleware
 const loggedInOnly = (req, res, next) => {
@@ -50,6 +63,40 @@ router.post("/register", (req, res, next) => {
 
 router.get('/admin', loggedInOnly, function (req, res) {
     res.render('admin');
+
 });
+
+router.get('/form',  function (req, res) {
+    res.render('form');
+
+});
+
+// var insertDocuments = function(req, db, filePath) {
+//     var collection = db.collection('pictures');
+//     collection.insertOne({
+//         name: req.body.name,
+//         description: req.body.description,
+//         section: req.body.description,
+//         imagePath : filePath
+//     }, (err, result) => {
+//         assert.equal(err, null);
+//     });
+// };
+
+router.post('/form', upload.single('file'), function (req, res, next) {
+    // var collection = db.collection('pictures');
+    Pictures.create({
+        name: req.body.name,
+        description: req.body.description,
+        section: req.body.description,
+        imagePath : 'public/uploads/' + req.file.originalname
+    }, (err, result) => {
+        if (err) next(err);
+    });
+    // insertDocuments(req, db, 'public/uploads/' + req.file.originalname);
+    res.render('admin');
+});
+
+
 
 module.exports = router;

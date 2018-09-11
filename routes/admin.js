@@ -3,6 +3,7 @@ var router = express.Router();
 var passport = require('passport');
 var Admin = require('../models/admin');
 var Pictures = require('../models/picture');
+var Sections = require('../models/section');
 var multerConfig = require('../app');
 
 var multer = require('multer');
@@ -66,37 +67,51 @@ router.get('/admin', loggedInOnly, function (req, res) {
 
 });
 
-router.get('/form',  function (req, res) {
-    res.render('form');
-
+router.get('/addPic',  function (req, res, next) {
+    Sections.find({}, function (err, sections) {
+        if (err){
+            next(err);
+        } else {
+            res.render('addPic', {sections: sections})
+        }
+    });
 });
 
-// var insertDocuments = function(req, db, filePath) {
-//     var collection = db.collection('pictures');
-//     collection.insertOne({
-//         name: req.body.name,
-//         description: req.body.description,
-//         section: req.body.description,
-//         imagePath : filePath
-//     }, (err, result) => {
-//         assert.equal(err, null);
-//     });
-// };
 
-router.post('/form', upload.single('file'), function (req, res, next) {
-    // var collection = db.collection('pictures');
-    Pictures.create({
+router.post('/addPic', upload.single('file'), function (req, res, next) {
+    var newPic = {
         name: req.body.name,
         description: req.body.description,
-        section: req.body.description,
-        imagePath : 'public/uploads/' + req.file.originalname
-    }, (err, result) => {
-        if (err) next(err);
+        section: req.body.section,
+        file: req.body.file
+    };
+    Pictures.create(newPic, function (err, picture) {
+        if (err) {
+            next(err);
+        } else {
+            Sections.findById(req.body.section, function (error, section) {
+                section.pictures.push(picture);
+            });
+            picture.save();
+            res.redirect('/admin');
+        }
     });
-    // insertDocuments(req, db, 'public/uploads/' + req.file.originalname);
-    res.render('admin');
 });
 
+router.get('/addSection',  function (req, res) {
+    res.render('addSection');
+});
+
+router.post('/addSection', function(req, res, next) {
+    Sections.create(req.body.section, function(err, section){
+        if (err) {
+            next(err);
+        } else {
+            section.save();
+            res.redirect('/admin');
+        }
+    });
+});
 
 
 module.exports = router;

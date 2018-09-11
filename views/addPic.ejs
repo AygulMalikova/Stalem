@@ -1,0 +1,13 @@
+<form action="/addPic" method="POST" enctype="multipart/form-data" >
+    <input type="text" name="name">
+    <input type="text" name="description">
+
+    <select class="form-control" id="section" name="section">
+        <% sections.forEach(function (section) { %>
+            <option value="<%= section._id%>"> <%= section.name %> </option>
+        <%})%>
+
+    </select>
+    <input type="file" name="file" accept="image/*">
+    <input type="submit">
+</form>

@@ -11,6 +11,10 @@ const SectionSchema = new Schema({
                 ref: "Pictures"
             }
             ]
+    // cover: {
+    //     type: mongoose.Schema.Types.ObjectId,
+    //     ref: "Pictures"
+    // }
 });
 
 const Sections = mongoose.model("Sections", SectionSchema);

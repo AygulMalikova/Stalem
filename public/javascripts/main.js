@@ -46,8 +46,3 @@ function fadeIn(el, display){
     })();
 }
 
-
-
-
-
-// $('.carousel').carousel()

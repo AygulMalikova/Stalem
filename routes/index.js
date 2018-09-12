@@ -1,13 +1,27 @@
 var express = require('express');
 var router = express.Router();
+var Pictures = require('../models/picture');
+var Sections = require('../models/section');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index');
+    Sections.find({}, function (err, sections) {
+        if (err){
+            next(err);
+        } else {
+            res.render('index', {sections: sections})
+        }
+    });
 });
 
-router.get('/portfolio', function (req, res) {
-    res.render('portfolio');
+router.get('/portfolio', function (req, res, next) {
+    Sections.find({}, function (err, sections) {
+        if (err){
+            next(err);
+        } else {
+            res.render('portfolio', {sections: sections})
+        }
+    });
 });
 
 module.exports = router;

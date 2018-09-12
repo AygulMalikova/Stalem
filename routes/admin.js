@@ -90,7 +90,8 @@ router.post('/addPic', upload.single('file'), function (req, res, next) {
             next(err);
         } else {
             Sections.findById(req.body.section, function (error, section) {
-                section.pictures.push(picture);
+                section.pictures.push(picture._id);
+                section.save();
             });
             picture.save();
             res.redirect('/admin');

@@ -8,6 +8,7 @@ var session = require('express-session');
 var bodyParser = require('body-parser');
 var Admin = require('./models/admin');
 var Picture = require('./models/picture');
+var Section = require('./models/section');
 var mongoose = require('mongoose');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;

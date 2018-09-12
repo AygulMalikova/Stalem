@@ -30,38 +30,42 @@
 
     <div class="container portfolio" id="portfolio">
         <div class="inner">
+            <% sections.forEach(function (section, i) {
+            if (i % 2 == 0) { %>
                 <div class="row item">
                     <div class="caption col-sm-6">
-                        <a href=""><h2>Zdes' budet nazvanie razdela</h2></a>
-                        <p>Show your images and video with old polaroid gallery style. Polaroid Gallery type gives you professional result and covers a wide range of features. Make your wordpress photo gallery awesome with polaroid effect!
-                            The default version of WordPress allows you to add images to posts and pages, but this is rather limited — if you’re serious about attracting new clients, it just won’t cut it. If you’re claiming to be a creative individual, then you need a professional looking and original portfolio, right? Polaroid Gallery enables you to create incredible, stylish, responsive image grids from polaroid photos!
-                        </p>
+                        <a href=""><h2><%= section.name %> </h2></a>
+                        <p><%= section.description %> </p>
                     </div>
                     <div class="frame image col-sm-5 offset-sm-1">
                         <a href="">
-                            <img src="/public/images/1.jpg" alt="">
+                            <img src="" alt="">
                         </a>
                     </div>
                 </div>
-            <div class="divider">
-                <img src="/public/images/divider.svg" alt="">
-            </div>
 
-                <div class="row item">
-                    <div class="frame image col-sm-5">
-                        <a href="">
-                            <img src="/public/images/1.jpg" alt="">
-                        </a>
+            <%} %>
+                <!--<div class="divider">-->
+                    <!--<img src="/public/images/divider.svg" alt="">-->
+                <!--</div>-->
+                <% else {%>
+                    <div class="row item">
+                        <div class="frame image col-sm-5">
+                            <a href="">
+                                <img src="" alt="">
+                            </a>
+                        </div>
+                        <div class="caption col-sm-6 offset-sm-1">
+                            <h2><%= section.name %></h2>
+                            <p><%= section.description %> </p>
+                        </div>
                     </div>
-                    <div class="caption col-sm-6 offset-sm-1">
-                        <h2>Zdes' budet nazvanie razdela</h2>
-                        <p>Show your images and video with old polaroid gallery style. Polaroid Gallery type gives you professional result and covers a wide range of features. Make your wordpress photo gallery awesome with polaroid effect!
-                            The default version of WordPress allows you to add images to posts and pages, but this is rather limited — if you’re serious about attracting new clients, it just won’t cut it. If you’re claiming to be a creative individual, then you need a professional looking and original portfolio, right? Polaroid Gallery enables you to create incredible, stylish, responsive image grids from polaroid photos!
-                        </p>
-                    </div>
-                </div>
+                <%}%>
+            <% })%>
         </div>
     </div>
+
+
 
     <div class="container info" id="about">
         <div class="inner">

@@ -9,19 +9,19 @@ router.get('/', function(req, res, next) {
         if (err){
             next(err);
         } else {
-            res.render('index', {sections: sections})
+            res.render('index', {sections: sections, authorized: false});
         }
     });
 });
 
 router.get('/portfolio', function (req, res, next) {
-    Sections.find({}, function (err, sections) {
+    Sections.findById(Sections.find({}).populate("pictures").exec(function(err, sections) {
         if (err){
             next(err);
         } else {
             res.render('portfolio', {sections: sections})
         }
-    });
+    }));
 });
 
 module.exports = router;

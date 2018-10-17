@@ -113,10 +113,6 @@ body > * {
 }
 
 
-
-
-
-
 .menu-animation {
 
 }
@@ -140,6 +136,7 @@ body > * {
   padding: 90px;
   margin: 90px auto;
   .inner{
+    width: 100%;
     padding: 25px;
     background: #e2e2e2;
     box-shadow: 9px 10px 60px 67px #e2e2e2;
@@ -168,6 +165,7 @@ body > * {
   }
 
   .image {
+    min-height: 400px;
     transition: all 0.75s ease-out;
     display: inline-block;
     position: relative;
@@ -287,9 +285,10 @@ body > * {
       margin: 0 auto;
     }
     img {
-      max-width: 100px;
-      margin: 0 70px;
+      max-width: 110px;
+      margin: 0 68px;
     }
+
   }
 }
 

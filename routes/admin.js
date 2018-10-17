@@ -5,6 +5,7 @@ var Admin = require('../models/admin');
 var Pictures = require('../models/picture');
 var Sections = require('../models/section');
 var multerConfig = require('../app');
+var expressSanitizer = require('express-sanitizer');
 
 var multer = require('multer');
 var storage = multer.diskStorage({
@@ -40,6 +41,16 @@ router.post('/login',
         res.redirect('/admin');
     });
 
+router.get('/admin', loggedInOnly, function (req, res) {
+    Sections.find({}, function (err, sections) {
+        if (err){
+            next(err);
+        } else {
+            res.render('index', {sections: sections, authorized: true});
+        }
+    });
+});
+
 
 router.get('/register', function(req, res) {
     res.render('register', {});
@@ -64,10 +75,69 @@ router.post("/register", (req, res, next) => {
 
 router.get('/admin', loggedInOnly, function (req, res) {
     res.render('admin');
+});
 
+router.get('/settings', function (req, res) {
+    var id = req.user.id;
+    Admin.findById(id, function (err, admin) {
+        if (err) {
+            next(err);
+        }
+        else {
+            res.render('settings', {admin: admin});
+        }
+    });
+});
+
+
+
+router.post('/settings', loggedInOnly, function (req, res) {
+    var id = req.user.id;
+    // var oldPassword = req.body.oldPassword;
+    // var newPassword = req.body.newPassword;
+    req.user.username = req.sanitize(req.body.username);
+    var oldPassword = req.body.oldPassword;
+    var newPassword = req.body.newPassword;
+    console.log(oldPassword, newPassword);
+    Admin.findById(id, function (err, admin) {
+        admin.username = req.user.username;
+        if (oldPassword.length > 0) {
+            if (admin.validPassword(oldPassword)) {
+                if (newPassword.length >= 6) {
+                    console.log("done");
+                    admin.password = newPassword;
+                    admin.save(function (err) {
+                        if(err) {
+                            console.error('ERROR!');
+                        }
+                        else {
+                            res.redirect('/admin');
+                        }
+                    });
+                }
+                else {
+                    console.log(1345);
+                }
+            }
+        }
+        admin.save(function (err) {
+            if(err) {
+                console.error('ERROR!');
+            }
+            else {
+                res.redirect('/settings');
+            }
+        });
+    });
+});
+
+router.get('/logout', loggedInOnly, function(req, res){
+    req.logout();
+    res.redirect('/');
 });
 
 router.get('/addPic',  function (req, res, next) {
+
     Sections.find({}, function (err, sections) {
         if (err){
             next(err);
@@ -83,7 +153,7 @@ router.post('/addPic', upload.single('file'), function (req, res, next) {
         name: req.body.name,
         description: req.body.description,
         section: req.body.section,
-        file: req.body.file
+        imagePath: req.file.path
     };
     Pictures.create(newPic, function (err, picture) {
         if (err) {

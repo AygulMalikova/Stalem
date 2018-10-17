@@ -1,19 +1,24 @@
 .content.portfolio {
   min-height: calc(100vh - 140px); /* will cover the 100% of viewport */
-  overflow: hidden;
+  overflow: initial !important;
   position: relative;
   display: flex;
   flex-direction: column;
   padding-bottom: 0; /* height of your footer */
   background-color: rgba(0,0,0,0);
+  padding: 0 15px !important;
+  margin-top: 50px;
+
+  .row {
+    width: 100%;
+  }
 
   .navbar-fixed-left{
-    width: 200px;
-    height: 400px;
+    //align-items: center;
     position: fixed;
     opacity: 1;
-    left: 50px;
-    top: 15%;
+    //left: 50px;
+    //top: 15%;
 
 
     .menu {
@@ -50,17 +55,6 @@
         border: none;
         color: #f5f1a9;
       }
-      //li.nav-item{
-      //  font-weight: bold;
-      //  font-size: 40px !important;
-      //  text-decoration: none;
-      //  list-style: none;
-      //  letter-spacing: -1px;
-      //  line-height: 50px;
-      //  color: #ffffff;
-      //  opacity: 1;
-      //  transform: translateY(20px);
-      //}
 
     }
   }
@@ -68,48 +62,68 @@
     top: 80px;
   }
 
-  .container.slider {
-    display: flex;
-    flex-direction: row;
-    position: absolute;
-    right: 50px;
-    top: 0;
-    width: 70%;
-    height: 80%;
+  .awSlider {
+    max-width: 800px;
+    margin: auto;
+  }
     .carousel {
       position: relative;
       width: 100%;
 
-      .carousel-indicators {
-        top: 630px;
-      }
+
 
       .carousel-inner {
         position: relative;
         margin: 0 auto;
         text-align: center;
       }
-
-      .card {
-        position: relative;
-        width: 80%;
-        height: 100%;
-        margin: 40px auto 0 auto;
-        background: #dddddd;
-
+      .carousel-item {
+        height: auto;
+        padding: 0 !important;
       }
-    }
 
-    .carousel-item {
-      .img-thumbnail {
-        width:  600px;
-        height: 600px;
-        background-position: 50% 50%;
-        background-repeat:   no-repeat;
-        background-size:     cover;
-
-      }
+      //.card {
+      //  position: relative;
+      //  width: 80%;
+      //  height: 100%;
+      //  margin: 40px auto 0 auto;
+      //  background: #dddddd;
+      //
+      //}
     }
   }
+section.awSlider img {
+  border: none;
+  width: auto;
+  max-height: 600px;
+  background-position: 50% 50%;
+  background: rgb(0,0,0);
+  background-repeat:   no-repeat;
+  background-size:     cover;
+  pointer-events: none;
 
+}
+
+section.awSlider:hover > img{
+  transform: scale(1.05);
+  opacity:1;
+}
+
+section.awSlider img{
+  pointer-events: none;
+}
+
+section.awSlider > img{
+  border: none;
+  position: absolute;
+  top: 0;
+  margin-left: 50%;
+  height: 100%;
+  width: auto;
+  max-width: 100%;
+  z-index: -1;
+  transition:all .3s;
+  filter: blur(1.8vw);
+  transform: scale(1.03);
+  opacity:.3;
 }

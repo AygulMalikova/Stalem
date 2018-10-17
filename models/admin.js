@@ -12,7 +12,11 @@ const AdminSchema = new Schema({
 AdminSchema.plugin(uniqueValidator);
 
 AdminSchema.methods.validPassword = function(password) {
-    return bcrypt.compareSync(password, this.passwordHash);
+    return bcrypt.compareSync(password, this.passwordHash, function (err) {
+        if (err) {
+            console.error('ERROR!');
+        }
+    });
 };
 
 AdminSchema.virtual("password").set(function(value) {

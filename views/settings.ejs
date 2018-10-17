@@ -1,0 +1,42 @@
+<% include partials/header.ejs %>
+
+<img src="/public/images/hero.jpg" class="bg"/>
+<div class="header">
+    <div class="caption">
+        <h1>Settings</h1>
+    </div>
+</div>
+<div class="container form">
+    <div class="blur"></div>
+    <div class="form">
+        <form action="/settings" method="POST" autocomplete="off">
+
+            <div class="group">
+                <input type="text" name="username" value="<%=admin.username%>" required>
+                <span class="highlight"></span>
+                <span class="bar"></span>
+                <label>Username</label>
+            </div>
+
+            <div class="group">
+                <input type="password" name="oldPassword">
+                <span class="highlight"></span>
+                <span class="bar"></span>
+                <label>Old password</label>
+            </div>
+
+            <div class="group">
+                <input type="password" name="newPassword">
+                <span class="highlight"></span>
+                <span class="bar"></span>
+                <label>New password</label>
+            </div>
+
+            <div class="form-group">
+                <button>Save</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<% include partials/footer.ejs %>

@@ -23,6 +23,10 @@
                 <a href="#about"><li class="link">About</li></a>
                 <hr>
                 <a href="#contact"><li class="link">Contact</li></a>
+                <% if (authorized) {%>
+                    <hr>
+                    <a href="/settings"><li class="link">Settings</li></a>
+                <%}%>
             </ul>
         </div>
         <div class="overlay"></div>
@@ -34,32 +38,31 @@
             if (i % 2 == 0) { %>
                 <div class="row item">
                     <div class="caption col-sm-6">
-                        <a href=""><h2><%= section.name %> </h2></a>
+                        <a href="/portfolio/#<%=  section.name.replace(" ", "")%>"><h2><%= section.name %> </h2></a>
                         <p><%= section.description %> </p>
                     </div>
                     <div class="frame image col-sm-5 offset-sm-1">
-                        <a href="">
+                        <a href="/portfolio/#<%=  section.name.replace(" ", "")%>">
                             <img src="" alt="">
                         </a>
                     </div>
                 </div>
 
-            <%} %>
-                <!--<div class="divider">-->
-                    <!--<img src="/public/images/divider.svg" alt="">-->
-                <!--</div>-->
-                <% else {%>
-                    <div class="row item">
-                        <div class="frame image col-sm-5">
-                            <a href="">
-                                <img src="" alt="">
-                            </a>
-                        </div>
-                        <div class="caption col-sm-6 offset-sm-1">
-                            <h2><%= section.name %></h2>
-                            <p><%= section.description %> </p>
-                        </div>
+            <%} else {%>
+                <div class="divider">
+                    <img src="/public/images/divider.svg" alt="">
+                </div>
+                <div class="row item">
+                    <div class="frame image col-sm-5">
+                        <a href="/portfolio/#<%=  section.name.replace(" ", "")%>">
+                            <img src="" alt="">
+                        </a>
                     </div>
+                    <div class="caption col-sm-6 offset-sm-1">
+                        <a href="/portfolio/#<%=  section.name.replace(" ", "")%>"><h2><%= section.name %> </h2></a>
+                        <p><%= section.description %> </p>
+                    </div>
+                </div>
                 <%}%>
             <% })%>
         </div>
@@ -79,10 +82,15 @@
     <div class="container social" id="contact">
         <div class="inner">
             <div class="container icons">
-                <img src="/public/images/vk.svg" alt="">
-                <img src="/public/images/telegram.svg" alt="">
-
-                <img src="/public/images/instagram.svg" alt="">
+                <a href="https://vk.com/doll_maker" target="_blank">
+                    <img src="/public/images/vk.svg" alt="">
+                </a>
+                <a href="" target="_blank">
+                    <img src="/public/images/telegram.svg" alt="">
+                </a>
+                <a href="https://www.instagram.com/stannie_lem/" target="_blank">
+                    <img class="instagram" src="/public/images/instagram.svg" alt="">
+                </a>
             </div>
         </div>
     </div>

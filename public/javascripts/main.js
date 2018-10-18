@@ -19,6 +19,7 @@ for (let i = 0; i < link.length; i++) {
     })
 }
 $(document).ready(() => {
+    console.log(543);
     const hash = window.location.hash.substring(1);
     const path = window.location.pathname;
     const str = 'show active';
@@ -30,6 +31,7 @@ $(document).ready(() => {
 });
 
 $(`.nav-link`).click((e)=> {
+    console.log(123);
     window.location.hash = $(e.target).attr('href');
     const hash = window.location.hash.substring(1);
 

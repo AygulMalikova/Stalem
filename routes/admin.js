@@ -93,8 +93,6 @@ router.get('/settings', function (req, res) {
 
 router.post('/settings', loggedInOnly, function (req, res) {
     var id = req.user.id;
-    // var oldPassword = req.body.oldPassword;
-    // var newPassword = req.body.newPassword;
     req.user.username = req.sanitize(req.body.username);
     var oldPassword = req.body.oldPassword;
     var newPassword = req.body.newPassword;
@@ -174,6 +172,8 @@ router.get('/addSection',  function (req, res) {
 });
 
 router.post('/addSection', function(req, res, next) {
+
+
     Sections.create(req.body.section, function(err, section){
         if (err) {
             next(err);

@@ -19,7 +19,6 @@ for (let i = 0; i < link.length; i++) {
     })
 }
 $(document).ready(() => {
-    console.log(543);
     const hash = window.location.hash.substring(1);
     const path = window.location.pathname;
     const str = 'show active';
@@ -31,7 +30,6 @@ $(document).ready(() => {
 });
 
 $(`.nav-link`).click((e)=> {
-    console.log(123);
     window.location.hash = $(e.target).attr('href');
     const hash = window.location.hash.substring(1);
 
@@ -46,7 +44,6 @@ $(`.nav-link`).click((e)=> {
 function carousel() {
 
 // Activate Carousel
-
     $('section.awSlider .carousel').carousel({
         interval: false
     }).on('slid.bs.carousel', function () {
@@ -108,4 +105,39 @@ function fadeIn(el, display){
 }
 
 
+
+$(".imgAdd").click(function(){
+    $(this).closest(".row").find('.imgAdd').before('<div class="col-lg-4 imgUp"><div class="imagePreview">\n' +
+        '<img src="/public/images/pic.svg" alt=""></div><label ' +
+        'class="btn btn-primary">Upload<input type="file" class="uploadFile img" value="Upload Photo" ' +
+        'style="width:0px;height:0px;overflow:hidden;"></label><i class="fa fa-times del"></i>' +
+        '<div class="group file"> <input class="file" type="text" name="picname" required>\n' +
+        '<span class="highlight file"></span>\n' +
+        '<span class="bar file"></span>\n' +
+        '<label class="file">Name</label>\n' +
+        '</div></div>');
+});
+$(document).on("click", "i.del" , function() {
+    $(this).parent().remove();
+});
+$(function() {
+    $(document).on("change",".uploadFile", function()
+    {
+        var uploadFile = $(this);
+        var files = !!this.files ? this.files : [];
+        if (!files.length || !window.FileReader) return; // no file selected, or no FileReader support
+
+        if (/^image/.test( files[0].type)){ // only image file
+            var reader = new FileReader(); // instance of the FileReader
+            reader.readAsDataURL(files[0]); // read the local file
+
+            reader.onloadend = function(){ // set image data as background of div
+                //alert(uploadFile.closest(".upimage").find('.imagePreview').length);
+                uploadFile.closest(".imgUp").find('.imagePreview').find('img').css("opacity","0");
+                uploadFile.closest(".imgUp").find('.imagePreview').css("background-image", "url("+this.result+")");
+            }
+        }
+
+    });
+});
 

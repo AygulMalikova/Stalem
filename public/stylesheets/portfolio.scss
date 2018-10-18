@@ -14,11 +14,8 @@
   }
 
   .navbar-fixed-left{
-    //align-items: center;
     position: fixed;
     opacity: 1;
-    //left: 50px;
-    //top: 15%;
 
 
     .menu {
@@ -30,7 +27,7 @@
       border-bottom: none;
 
 
-      a.nav-link{
+      a{
         margin-bottom: 20px;
         font-weight: bold;
         font-size: 45px !important;
@@ -44,17 +41,28 @@
         border: none;
       }
 
-      a.nav-link:hover {
+      a:hover {
         transition: color 0.5s;
         color: #f5f1a9;
         border: none;
       }
 
-      a.nav-link.active{
+      a.active{
         background-color: rgba(0,0,0,0);
         border: none;
         color: #f5f1a9;
       }
+      //a.new-section {
+      //  font-weight: bold;
+      //  font-size: 40px !important;
+      //  list-style: none;
+      //  letter-spacing: -1px;
+      //  line-height: 60px;
+      //  color: #ffffff;
+      //  opacity: 1;
+      //  transform: translateY(20px);
+      //  border: none;
+      //}
 
     }
   }
@@ -81,15 +89,6 @@
         height: auto;
         padding: 0 !important;
       }
-
-      //.card {
-      //  position: relative;
-      //  width: 80%;
-      //  height: 100%;
-      //  margin: 40px auto 0 auto;
-      //  background: #dddddd;
-      //
-      //}
     }
   }
 section.awSlider img {

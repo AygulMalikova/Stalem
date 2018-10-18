@@ -1,5 +1,68 @@
-<form action="/addSection" method="POST">
-    <input type="text" name="section[name]">
-    <input type="text" name="section[description]">
-    <input type="submit">
-</form>
+<% include partials/header.ejs%>
+
+<img src="/public/images/hero.jpg" class="bg"/>
+<div class="content">
+    <div class="header">
+        <div class="caption">
+            <h1>New Section</h1>
+        </div>
+    </div>
+
+    <div class="container form section">
+        <div class="blur"></div>
+        <div class="form">
+            <form action="/addSection" method="POST">
+                <div class="group">
+                    <input type="text" name="section[name]" required>
+                    <span class="highlight"></span>
+                    <span class="bar"></span>
+                    <label>Title</label>
+                </div>
+
+                <div class="group">
+                    <input type="textarea" name="section[description]" required>
+                    <span class="highlight"></span>
+                    <span class="bar"></span>
+                    <label>Description</label>
+                </div>
+
+                <br><div class="container">
+                    <div class="row">
+                        <div class="col-lg-4 imgUp">
+                            <div class="imagePreview">
+                                <img src="/public/images/pic.svg" alt="">
+                            </div>
+                            <label class="btn btn-primary">
+                                Upload<input type="file" name = "file" class="uploadFile img" value="Upload Photo"
+                                             style="width: 0px;height: 0px;overflow: scroll;">
+                            </label>
+
+                            <div class="group file">
+                                <input class="file" type="text" name="picname" required>
+                                <span class="highlight file"></span>
+                                <span class="bar file"></span>
+                                <label class="file">Name</label>
+                            </div>
+                        </div><!-- col-2 -->
+                        <i class="fa fa-plus imgAdd"></i>
+                    </div><!-- row -->
+                </div><!-- container -->
+                <div class="form-group">
+                    <button>Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $.uploadPreview({
+            input_field: "#image-upload",
+            preview_box: "#image-preview",
+            label_field: "#image-label"
+        });
+    });
+</script>
+
+<% include partials/footer.ejs%>

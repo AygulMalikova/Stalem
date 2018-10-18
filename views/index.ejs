@@ -1,6 +1,5 @@
 <% include partials/header.ejs%>
 
-
     <div class="container hero">
         <div class="row">
             <div class="col-lg-12">
@@ -35,6 +34,7 @@
     <div class="container portfolio" id="portfolio">
         <div class="inner">
             <% sections.forEach(function (section, i) {
+
             if (i % 2 == 0) { %>
                 <div class="row item">
                     <div class="caption col-sm-6">
@@ -48,10 +48,9 @@
                     </div>
                 </div>
 
-            <%} else {%>
-                <div class="divider">
-                    <img src="/public/images/divider.svg" alt="">
-                </div>
+
+            <%} else if (i % 2 != 0) {%>
+
                 <div class="row item">
                     <div class="frame image col-sm-5">
                         <a href="/portfolio/#<%=  section.name.replace(" ", "")%>">
@@ -64,10 +63,15 @@
                     </div>
                 </div>
                 <%}%>
+                <% if (i != sections.length -1){%>
+                    <div class="divider">
+                        <img src="/public/images/divider.svg" alt="">
+                    </div>
+                <%}%>
             <% })%>
+
         </div>
     </div>
-
 
 
     <div class="container info" id="about">

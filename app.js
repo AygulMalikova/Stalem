@@ -32,7 +32,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(expressSanitizer());
 // app.use(session({ keys: ['secretkey1', 'secretkey2', '...'] }));
-
+const development = true;
 app.use(sassMiddleware({
     src: __dirname,
     dest: __dirname,
@@ -113,13 +113,16 @@ app.use(function(req, res, next) {
 
 // error handler
 app.use(function(err, req, res, next) {
-    res.send({err});
-    // // set locals, only providing error in development
-    // res.locals.message = err.message;
-    // res.locals.error = req.app.get('env') === 'development' ? err : {};
-    // // render the error page
-    // res.status(err.status || 500);
-    // res.render('error');
+    // set locals, only providing error in development
+    res.locals.message = err.message;
+    res.locals.error = development ? err : {};
+    if (development) {
+        res.send(err.message);
+    } else {
+        // render the error page
+        res.status(err.status || 500);
+        res.render('error');
+    }
 });
 
 module.exports.app = app;

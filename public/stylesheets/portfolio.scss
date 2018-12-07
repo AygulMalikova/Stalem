@@ -14,6 +14,7 @@
   }
 
   .navbar-fixed-left{
+    margin-bottom: 100px;
     position: fixed;
     opacity: 1;
 
@@ -77,9 +78,14 @@
     .carousel {
       position: relative;
       width: 100%;
-
-
-
+      .carousel-control-next {
+        height: 100%;
+        max-height: 600px;
+      }
+      .carousel-control-prev{
+        height: 100%;
+        max-height: 600px;
+      }
       .carousel-inner {
         position: relative;
         margin: 0 auto;
@@ -88,6 +94,9 @@
       .carousel-item {
         height: auto;
         padding: 0 !important;
+      }
+      .carousel-indicators {
+        position: relative;
       }
     }
   }
@@ -104,7 +113,7 @@ section.awSlider img {
 }
 
 section.awSlider:hover > img{
-  transform: scale(1.05);
+  transform: scale(1.1);
   opacity:1;
 }
 
@@ -125,4 +134,118 @@ section.awSlider > img{
   filter: blur(1.8vw);
   transform: scale(1.03);
   opacity:.3;
+}
+
+.card.card-block {
+  margin-top: 50px;
+  background: none;
+  height: max-content;
+  .form {
+    width: 100%;
+  }
+  .group.author{
+    width: auto;
+    flex-grow: 1;
+    margin: 0 30px 0 5px;
+    input {
+      width: auto;
+    }
+    .highlight {
+      width: auto;
+    }
+    .bar{
+      width: auto;
+    }
+  }
+  .group.comment{
+    width: auto;
+    flex-grow: 3;
+    margin: 0 30px 0 5px;
+    input {
+      width: auto;
+    }
+    .highlight {
+      width: auto;
+    }
+    .bar{
+      width: auto;
+    }
+  }
+
+  .group {
+    margin: 0;
+    textarea {
+      overflow:hidden;
+      background: rgba(0,0,0,0.3);
+      font-size: 18px;
+      padding: 10px 10px 10px 5px;
+      display: block;
+      height: 40px;
+      border: none;
+      border-bottom: 1px solid #757575;
+      color: #f5f1a9;
+    }
+    textarea:focus {
+      outline: none;
+    }
+  }
+  .form-group {
+    margin: 30px 20px 30px auto;
+
+    button {
+      cursor: pointer;
+      letter-spacing: 1px;
+      background: rgba(0, 0, 0, 0.3);
+      border: 2px solid rgba(179, 176, 122, 0.55);
+      color: #f5f1a9;
+      outline: none;
+      padding: 0 30px;
+      line-height: 44px;
+      height: auto;
+      border-radius: 30px;
+      width: auto;
+      text-transform: uppercase;
+      font-size: 16px;
+      font-weight: 500;
+
+    }
+  }
+
+  .comments {
+    width: 99%;
+    margin: 0;
+    padding: 0 20px;
+    color: #eeeeee;
+    .name {
+      font-size: 30px;
+      font-weight: bold;
+    }
+    .date {
+      font-size: 20px;
+    }
+    .text {
+      font-family: "Roboto", sans-serif;
+    }
+  }
+
+}
+
+hr {
+  max-width: 100%;
+  height: 1px;
+  background: linear-gradient(to left, rgba(233, 233, 233, 0), rgba(233, 233, 233, 0.75), rgba(233, 233, 233, 0));
+
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  border: 0;
+  border-top: 1px solid rgba(0,0,0,.1);
+}
+.ver {
+  min-height: 70px;
+  max-height: 70%;
+  width: 1px;
+  border: 0;
+  border-top: 1px solid rgba(0,0,0,.1);
+  background: linear-gradient(to top, rgba(233, 233, 233, 0), rgba(233, 233, 233, 0.75), rgba(233, 233, 233, 0));
+
 }

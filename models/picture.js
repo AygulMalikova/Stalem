@@ -10,6 +10,13 @@ const PicturesSchema = new Schema({
             ref: "Sections"
         },
     imagePath: { type: String },
+    comment:
+    [
+        {
+            type: Schema.Types.ObjectId,
+            ref: "Comments"
+        }
+    ]
 });
 
 const Pictures = mongoose.model("Pictures", PicturesSchema);

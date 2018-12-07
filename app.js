@@ -9,6 +9,7 @@ var bodyParser = require('body-parser');
 var Admin = require('./models/admin');
 var Picture = require('./models/picture');
 var Section = require('./models/section');
+var Comments = require('./models/comment');
 var mongoose = require('mongoose');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;

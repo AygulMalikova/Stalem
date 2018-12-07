@@ -278,8 +278,8 @@ body > * {
   margin: 90px auto;
   .inner {
     width: 100%;
-    background: #e2e2e2;
-    box-shadow: 9px 10px 60px 67px #e2e2e2;
+    //background: #e2e2e2;
+    //box-shadow: 9px 10px 60px 67px #e2e2e2;
     .icons {
       text-align: center;
       margin: 0 auto;
@@ -287,10 +287,26 @@ body > * {
     img {
       max-width: 110px;
       margin: 0 68px;
+      filter: none;
+      -webkit-filter: grayscale(100%);
+      -moz-filter: grayscale(100%);
+      -ms-filter: grayscale(100%);
+      -o-filter: grayscale(50%);
+      cursor: pointer;
+      transition: all 300ms ease;
+
+    }
+      img:hover {
+        filter: none;
+        -webkit-filter: grayscale(0%);
+        -moz-filter:    grayscale(0%);
+        -ms-filter:     grayscale(0%);
+        -o-filter:      grayscale(0%);
+      }
     }
 
   }
-}
+
 
 //**************
 footer {

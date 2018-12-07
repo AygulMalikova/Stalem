@@ -13,14 +13,14 @@
         <div class="form">
             <form action="/addSection" method="POST">
                 <div class="group">
-                    <input type="text" name="section[name]" required>
+                    <input type="text" name="sectionName" required>
                     <span class="highlight"></span>
                     <span class="bar"></span>
                     <label>Title</label>
                 </div>
 
                 <div class="group">
-                    <input type="textarea" name="section[description]" required>
+                    <input type="textarea" name="sectionDescription" required>
                     <span class="highlight"></span>
                     <span class="bar"></span>
                     <label>Description</label>
@@ -38,10 +38,16 @@
                             </label>
 
                             <div class="group file">
+
+
                                 <input class="file" type="text" name="picname" required>
                                 <span class="highlight file"></span>
                                 <span class="bar file"></span>
                                 <label class="file">Name</label>
+
+                                <label class="radio">
+                                <input class="cover" type="radio" name="ratio" checked>
+                                </label>
                             </div>
                         </div><!-- col-2 -->
                         <i class="fa fa-plus imgAdd"></i>

@@ -110,16 +110,20 @@
     display: flex;
     flex-direction: column;
 
-    input {
+    input, textarea {
       background: rgba(0,0,0,0.3);
       font-size: 18px;
-      padding: 10px 10px 10px 5px;
+      padding: 10px 0 !important;
       display: block;
-      width: 350px;
+      width: 100%;
       height: 40px;
       border: none;
       border-bottom: 1px solid #757575;
       color: #f5f1a9;
+    }
+    textarea {
+      height: auto;
+      min-height: 40px;
     }
     input:focus {
       outline: none;
@@ -146,7 +150,7 @@
     }
 
     /* active state */
-    input:focus ~ label, input:valid ~ label {
+    input:focus ~ label, textarea:focus ~ label, input:valid ~ label, textarea:valid ~ label {
       left: 0;
       top: -20px;
       font-size: 14px;
@@ -179,7 +183,8 @@
     }
 
     /* active state */
-    input:focus ~ .bar:before, input:focus ~ .bar:after {
+    input:focus ~ .bar:before, input:focus ~ .bar:after,
+    textarea:focus ~ .bar:before, textarea:focus ~ .bar:after {
       width: 50%;
     }
 
@@ -197,7 +202,7 @@
 }
 
 /* active state */
-input:focus ~ .highlight {
+input:focus ~ .highlight, textarea:focus ~ .highlight {
   -webkit-animation:inputHighlighter 0.3s ease;
   -moz-animation:inputHighlighter 0.3s ease;
   animation:inputHighlighter 0.3s ease;
@@ -293,5 +298,5 @@ input:focus ~ .highlight {
   margin-top:0px;
   cursor:pointer;
   font-size:15px;
-
 }
+

@@ -111,10 +111,12 @@ $(".imgAdd").click(function(){
         '<img src="/public/images/pic.svg" alt=""></div><label ' +
         'class="btn btn-primary">Upload<input type="file" class="uploadFile img" value="Upload Photo" ' +
         'style="width:0px;height:0px;overflow:hidden;"></label><i class="fa fa-times del"></i>' +
-        '<div class="group file"> <input class="file" type="text" name="picname" required>\n' +
+        '<div class="group file">\n' +
+        '<input class="file" type="text" name="picname" required>\n' +
         '<span class="highlight file"></span>\n' +
         '<span class="bar file"></span>\n' +
         '<label class="file">Name</label>\n' +
+        '<input class="cover" type="radio" name="ratio">' +
         '</div></div>');
 });
 $(document).on("click", "i.del" , function() {
@@ -141,3 +143,13 @@ $(function() {
     });
 });
 
+$("textarea").keyup(function(e) {
+    while($(this).outerHeight() < this.scrollHeight + parseFloat($(this).css("borderTopWidth")) + parseFloat($(this).css("borderBottomWidth"))) {
+        $(this).height($(this).height()+1);
+    };
+});
+
+$('input').each( function () {
+    $this = $(this);
+    if ( this.value != '' ) $this.addClass('yourClass');
+});

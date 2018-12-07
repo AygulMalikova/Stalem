@@ -64,21 +64,57 @@
                                 </ol>
 
                                 <div class="card card-block bg-faded">
-                                    <div class="text-right">
-                                        <a class="btn btn-success" href="">
-                                            Add new Comment
-                                        </a>
-                                    </div>
                                     <hr>
                                     <div class="row">
-                                        <div class="col-md-12">
-                                            <strong>Luiz</strong>
-                                            <span class="pull-right">10 days ago</span>
-                                            <p>It is increadible!!</p>
+                                        <div class="ver" style="float: left"> </div>
+
+                                        <div class="comments">
+                                            <strong class="name">Name</strong>
+                                            <span class="pull-right date">10 days ago</span>
+                                            <p class="text">It is increadible!!</p>
                                         </div>
+                                        <div class="ver" style="float: right"> </div>
+                                    </div>
+                                    <hr>
+
+                                    <hr>
+                                    <div class="row">
+                                        <div class="ver" style="float: left"> </div>
+
+                                        <div class="comments">
+                                            <strong class="name">Name</strong>
+                                            <span class="pull-right date">10 days ago</span>
+                                            <p class="text">It is increadible!!</p>
+                                        </div>
+                                        <div class="ver" style="float: right"> </div>
+                                    </div>
+                                    <hr>
+
+
+                                    <div class="form">
+                                        <form action="/" class="form form-inline" method="POST" autocomplete="off">
+                                            <div class="group comment">
+                                                <textarea type="text" name="comment" required></textarea>
+                                                <span class="highlight"></span>
+                                                <span class="bar"></span>
+                                                <label>Comment</label>
+                                            </div>
+
+                                            <div class="group author">
+                                                <input value="" type="text" name="author" required>
+                                                <span class="highlight"></span>
+                                                <span class="bar"></span>
+                                                <label>Author</label>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <button>Add</button>
+                                            </div>
+                                        </form>
+                                    </div>
                                     </div>
                                 </div>
-                            </div>
+
                         </section>
                     </div>
                 <% }) %>

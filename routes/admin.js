@@ -172,7 +172,14 @@ router.get('/addSection',  function (req, res) {
 });
 
 router.post('/addSection', function(req, res, next) {
-
+    var newPic = {
+        name: req.body.picname,
+        imagePath: req.file.path
+    };
+    var newSection = {
+        name: req.body.sectionName,
+        description: req.body.sectionDescription
+    }
 
     Sections.create(req.body.section, function(err, section){
         if (err) {

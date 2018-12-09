@@ -11,7 +11,7 @@
     <div class="container form section">
         <div class="blur"></div>
         <div class="form">
-            <form action="/addSection" method="POST">
+            <form action="/addSection" method="POST" enctype="multipart/form-data">
                 <div class="group">
                     <input type="text" name="sectionName" required>
                     <span class="highlight"></span>
@@ -36,18 +36,12 @@
                                 Upload<input type="file" name = "file" class="uploadFile img" value="Upload Photo"
                                              style="width: 0px;height: 0px;overflow: scroll;">
                             </label>
-
                             <div class="group file">
-
-
-                                <input class="file" type="text" name="picname" required>
+                                <input class="file" type="text" name="picname">
                                 <span class="highlight file"></span>
                                 <span class="bar file"></span>
                                 <label class="file">Name</label>
-
-                                <label class="radio">
-                                <input class="cover" type="radio" name="ratio" checked>
-                                </label>
+                                <input class="cover" type="radio" name="cover" value="0">
                             </div>
                         </div><!-- col-2 -->
                         <i class="fa fa-plus imgAdd"></i>

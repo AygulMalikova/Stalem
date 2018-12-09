@@ -43,18 +43,16 @@
                     </div>
                     <div class="frame image col-sm-5 offset-sm-1">
                         <a href="/portfolio/#<%=  section.name.replace(" ", "")%>">
-                            <img src="" alt="">
+                            <img src="/<%= section.cover.imagePath%>">
                         </a>
                     </div>
                 </div>
 
-
             <%} else if (i % 2 != 0) {%>
-
                 <div class="row item">
                     <div class="frame image col-sm-5">
                         <a href="/portfolio/#<%=  section.name.replace(" ", "")%>">
-                            <img src="" alt="">
+                            <img src="/<%= section.cover.imagePath%>">
                         </a>
                     </div>
                     <div class="caption col-sm-6 offset-sm-1">

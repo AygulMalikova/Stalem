@@ -5,16 +5,14 @@ const SectionSchema = new Schema({
     name: { type: String},
     description: { type: String},
     pictures:
-        [
-            {
+        [{
                 type: mongoose.Schema.Types.ObjectId,
                 ref: "Pictures"
-            }
-            ]
-    // cover: {
-    //     type: mongoose.Schema.Types.ObjectId,
-    //     ref: "Pictures"
-    // }
+            }],
+    cover: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Pictures"
+    }
 });
 
 const Sections = mongoose.model("Sections", SectionSchema);

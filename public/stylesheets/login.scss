@@ -300,3 +300,7 @@ input:focus ~ .highlight, textarea:focus ~ .highlight {
   font-size:15px;
 }
 
+input.cover.yourClass, input.cover{
+  margin: 0 auto;
+  width: 15px !important;
+}

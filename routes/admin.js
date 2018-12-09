@@ -7,6 +7,7 @@ var Sections = require('../models/section');
 var multerConfig = require('../app');
 var expressSanitizer = require('express-sanitizer');
 
+
 var multer = require('multer');
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -77,6 +78,7 @@ router.get('/admin', loggedInOnly, function (req, res) {
     res.render('admin');
 });
 
+
 router.get('/settings', function (req, res) {
     var id = req.user.id;
     Admin.findById(id, function (err, admin) {
@@ -88,7 +90,6 @@ router.get('/settings', function (req, res) {
         }
     });
 });
-
 
 
 router.post('/settings', loggedInOnly, function (req, res) {
@@ -134,61 +135,56 @@ router.get('/logout', loggedInOnly, function(req, res){
     res.redirect('/');
 });
 
-router.get('/addPic',  function (req, res, next) {
-
-    Sections.find({}, function (err, sections) {
-        if (err){
-            next(err);
-        } else {
-            res.render('addPic', {sections: sections})
-        }
-    });
-});
 
 
-router.post('/addPic', upload.single('file'), function (req, res, next) {
-    var newPic = {
-        name: req.body.name,
-        description: req.body.description,
-        section: req.body.section,
-        imagePath: req.file.path
-    };
-    Pictures.create(newPic, function (err, picture) {
-        if (err) {
-            next(err);
-        } else {
-            Sections.findById(req.body.section, function (error, section) {
-                section.pictures.push(picture._id);
-                section.save();
-            });
-            picture.save();
-            res.redirect('/admin');
-        }
-    });
-});
+// router.post('/addPic', upload.single('file'), function (req, res, next) {
+//     var newPic = {
+//         name: req.body.name,
+//         description: req.body.description,
+//         section: req.body.section,
+//         imagePath: req.file.path
+//     };
+//     Pictures.create(newPic, function (err, picture) {
+//         if (err) {
+//             next(err);
+//         } else {
+//             Sections.findById(req.body.section, function (error, section) {
+//                 section.pictures.push(picture._id);
+//                 section.save();
+//             });
+//             picture.save();
+//             res.redirect('/admin');
+//         }
+//     });
+// });
 
 router.get('/addSection',  function (req, res) {
     res.render('addSection');
 });
 
-router.post('/addSection', function(req, res, next) {
-    var newPic = {
-        name: req.body.picname,
-        imagePath: req.file.path
-    };
-    var newSection = {
-        name: req.body.sectionName,
-        description: req.body.sectionDescription
-    }
-
-    Sections.create(req.body.section, function(err, section){
-        if (err) {
-            next(err);
-        } else {
-            section.save();
-            res.redirect('/admin');
+router.post('/addSection',  upload.array('file', 2), async function(req, res, next) {
+    var cover = Number(req.body.cover);
+    Sections.create({name: req.body.sectionName, description: req.body.sectionDescription}, async function(err, section) {
+        for (let i = 0; i < req.files.length; i++) {
+            Pictures.create({name: req.body.picname[i], imagePath: req.files[i].path}, async function (err, pic) {
+                if(err) {
+                    console.error('Can not create picture!');
+                }
+                else{
+                    pic.section = section;
+                    await pic.save();
+                    if (i === cover) {
+                        section.cover = pic;
+                    }
+                    section.pictures.push(pic);
+                    await section.save();
+                }
+            });
         }
-    });
+
+        await section.save();
+        res.redirect('/admin');
+    })
 });
 
 

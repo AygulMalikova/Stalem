@@ -4,7 +4,6 @@ const link = document.querySelectorAll('.link');
 const body = document.body;
 
 hamburger.addEventListener('click', function () {
-
     body.classList.toggle('open');
     if (body.classList.contains('open')) {
         fadeIn(navMenu, "flex");
@@ -42,7 +41,6 @@ $(`.nav-link`).click((e)=> {
 });
 
 function carousel() {
-
 // Activate Carousel
     $('section.awSlider .carousel').carousel({
         interval: false
@@ -104,24 +102,37 @@ function fadeIn(el, display){
     })();
 }
 
-
+var counter = 0;
+console.log(counter);
 
 $(".imgAdd").click(function(){
-    $(this).closest(".row").find('.imgAdd').before('<div class="col-lg-4 imgUp"><div class="imagePreview">\n' +
-        '<img src="/public/images/pic.svg" alt=""></div><label ' +
-        'class="btn btn-primary">Upload<input type="file" class="uploadFile img" value="Upload Photo" ' +
+    counter++;
+    $(this).closest(".row").find('.imgAdd').before(
+        '<div class="col-lg-4 imgUp">\n' +
+        '<div class="imagePreview">\n' +
+        '<img src="/public/images/pic.svg" alt="">\n' +
+        '</div>\n' +
+        '<label class="btn btn-primary">\n' +
+        'Upload<input type="file" name = "file" class="uploadFile img" value="Upload Photo"\n' +
         'style="width:0px;height:0px;overflow:hidden;"></label><i class="fa fa-times del"></i>' +
+        '</label>\n' +
         '<div class="group file">\n' +
-        '<input class="file" type="text" name="picname" required>\n' +
+        '<input class="file" type="text" name="picname">\n' +
         '<span class="highlight file"></span>\n' +
         '<span class="bar file"></span>\n' +
         '<label class="file">Name</label>\n' +
-        '<input class="cover" type="radio" name="ratio">' +
-        '</div></div>');
+        '<input class="cover" type="radio" name = "cover" value="' + counter + '">\n' +
+        '</div>');
+    console.log(counter);
 });
+
 $(document).on("click", "i.del" , function() {
+    counter--;
     $(this).parent().remove();
+    console.log(counter);
 });
+
+
 $(function() {
     $(document).on("change",".uploadFile", function()
     {
@@ -149,7 +160,7 @@ $("textarea").keyup(function(e) {
     };
 });
 
-$('input').each( function () {
-    $this = $(this);
-    if ( this.value != '' ) $this.addClass('yourClass');
-});
+// $('input').each( function () {
+//     $this = $(this);
+//     if ( this.value != '' ) $this.addClass('yourClass');
+// });

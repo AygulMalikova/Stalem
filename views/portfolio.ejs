@@ -13,14 +13,16 @@
                                aria-controls="<%= section.name.replace(" ", "") %>"><%= section.name %></a>
                         </li>
                     <% }) %>
-                        <div class="section-divider">
-                            <img src="/public/images/divider.svg" alt="">
-                        </div>
-                    <li class="nav-item">
-                        <a class="new-section" href="/addSection">
-                            New Section
-                        </a>
-                    </li>
+                        <% if (authorized) {%>
+                            <div class="section-divider">
+                                <img src="/public/images/divider.svg" alt="">
+                            </div>
+                            <li class="nav-item">
+                                <a class="new-section" href="/addSection">
+                                    New Section
+                                </a>
+                            </li>
+                        <% }%>
                 </ul>
             </div>
         </div>
@@ -34,7 +36,7 @@
 
                                 <!-- Wrapper for slides -->
                                 <div class="carousel-inner">
-                                    <% var current;%>
+                                    <% var current = 0;%>
                                     <% for (var j = 0; j < section.pictures.length; j++) { %>
                                         <% current = j%>
                                         <div class="carousel-item">
@@ -42,59 +44,52 @@
                                             <div class="carousel-caption d-none d-md-block"><%= section.pictures[j].name %></div>
                                         </div>
                                     <% } %>
-                                </div>
 
+                                    <a class="carousel-control-prev" href="#<%= `id` + section._id %>" role="button"
+                                       data-slide="prev">
+                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                        <span class="sr-only">Previous</span>
+                                    </a>
+                                    <a class="carousel-control-next" href="#<%= `id` + section._id %>" role="button"
+                                       data-slide="next">
+                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                        <span class="sr-only">Next</span>
+                                    </a>
 
-                                <a class="carousel-control-prev" href="#<%= `id` + section._id %>" role="button"
-                                   data-slide="prev">
-                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                    <span class="sr-only">Previous</span>
-                                </a>
-                                <a class="carousel-control-next" href="#<%= `id` + section._id %>" role="button"
-                                   data-slide="next">
-                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                    <span class="sr-only">Next</span>
-                                </a>
+                                    <!-- Indicators -->
+                                    <ol class="carousel-indicators">
+                                        <% for (var i = 0; i < section.pictures.length; i++) { %>
+                                            <li data-target="#<%= `id` + section._id %>" data-slide-to="<%= i %>"></li>
+                                        <% } %>
+                                    </ol>
 
-                                <!-- Indicators -->
-                                <ol class="carousel-indicators">
-                                    <% for (var i = 0; i < section.pictures.length; i++) { %>
-                                        <li data-target="#<%= `id` + section._id %>" data-slide-to="<%= i %>"></li>
-                                    <% } %>
-                                </ol>
-
-                                <div class="card card-block bg-faded">
-                                    <hr>
-                                    <div class="row">
-                                        <div class="ver" style="float: left"> </div>
-
-                                        <div class="comments">
-                                            <strong class="name">Name</strong>
-                                            <span class="pull-right date">10 days ago</span>
-                                            <p class="text">It is increadible!!</p>
-                                        </div>
-                                        <div class="ver" style="float: right"> </div>
+                                    <div class="card card-block bg-faded">
+                                        <% for (var k = 0; k < section.pictures[current].comments.length; k++) { %>
+                                            <hr>
+                                            <div class="row">
+                                                <div class="ver" style="float: left"> </div>
+                                                <div class="comments">
+                                                    <strong class="name">
+                                                        <%= section.pictures[current].comments[k].author%>
+                                                    </strong>
+                                                    <span class="pull-right date">
+                                                <%= section.pictures[current].comments[k].date%>
+                                            </span>
+                                                    <p class="text">
+                                                        <%= section.pictures[current].comments[k].text%>
+                                                    </p>
+                                                </div>
+                                                <div class="ver" style="float: right"> </div>
+                                            </div>
+                                            <hr>
+                                        <% } %>
                                     </div>
-                                    <hr>
-
-                                    <hr>
-                                    <div class="row">
-                                        <div class="ver" style="float: left"> </div>
-
-                                        <div class="comments">
-                                            <strong class="name">Name</strong>
-                                            <span class="pull-right date">10 days ago</span>
-                                            <p class="text">It is increadible!!</p>
-                                        </div>
-                                        <div class="ver" style="float: right"> </div>
-                                    </div>
-                                    <hr>
 
 
                                     <div class="form">
-                                        <form action="/" class="form form-inline" method="POST" autocomplete="off">
+                                        <form action="/addComment/<%= current._id%>" class="form form-inline" method="POST" autocomplete="off">
                                             <div class="group comment">
-                                                <textarea type="text" name="comment" required></textarea>
+                                                <textarea type="text" name="text" required></textarea>
                                                 <span class="highlight"></span>
                                                 <span class="bar"></span>
                                                 <label>Comment</label>
@@ -112,8 +107,8 @@
                                             </div>
                                         </form>
                                     </div>
-                                    </div>
                                 </div>
+                            </div>
 
                         </section>
                     </div>

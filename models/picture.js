@@ -9,7 +9,7 @@ const PicturesSchema = new Schema({
             ref: "Sections"
         },
     imagePath: { type: String },
-    comment:
+    comments:
     [
         {
             type: Schema.Types.ObjectId,

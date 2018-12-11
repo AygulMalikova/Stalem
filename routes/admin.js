@@ -4,8 +4,6 @@ var passport = require('passport');
 var Admin = require('../models/admin');
 var Pictures = require('../models/picture');
 var Sections = require('../models/section');
-var multerConfig = require('../app');
-var expressSanitizer = require('express-sanitizer');
 
 
 var multer = require('multer');
@@ -79,7 +77,7 @@ router.get('/admin', loggedInOnly, function (req, res) {
 });
 
 
-router.get('/settings', function (req, res) {
+router.get('/settings', loggedInOnly, function (req, res) {
     var id = req.user.id;
     Admin.findById(id, function (err, admin) {
         if (err) {
@@ -136,55 +134,32 @@ router.get('/logout', loggedInOnly, function(req, res){
 });
 
 
-
-// router.post('/addPic', upload.single('file'), function (req, res, next) {
-//     var newPic = {
-//         name: req.body.name,
-//         description: req.body.description,
-//         section: req.body.section,
-//         imagePath: req.file.path
-//     };
-//     Pictures.create(newPic, function (err, picture) {
-//         if (err) {
-//             next(err);
-//         } else {
-//             Sections.findById(req.body.section, function (error, section) {
-//                 section.pictures.push(picture._id);
-//                 section.save();
-//             });
-//             picture.save();
-//             res.redirect('/admin');
-//         }
-//     });
-// });
-
-router.get('/addSection',  function (req, res) {
+router.get('/addSection', loggedInOnly, function (req, res) {
     res.render('addSection');
 });
 
-router.post('/addSection',  upload.array('file', 2), async function(req, res, next) {
-    var cover = Number(req.body.cover);
-    Sections.create({name: req.body.sectionName, description: req.body.sectionDescription}, async function(err, section) {
-        for (let i = 0; i < req.files.length; i++) {
-            Pictures.create({name: req.body.picname[i], imagePath: req.files[i].path}, async function (err, pic) {
-                if(err) {
-                    console.error('Can not create picture!');
-                }
-                else{
-                    pic.section = section;
-                    await pic.save();
-                    if (i === cover) {
-                        section.cover = pic;
-                    }
-                    section.pictures.push(pic);
-                    await section.save();
-                }
+router.post('/addSection', upload.array('file', 4), loggedInOnly, async (req, res, next) => {
+    const cover = Number(req.body.cover);
+    const section = new Sections({
+        name: req.body.sectionName,
+        description: req.body.sectionDescription,
+        cover: null,
+        pictures: []
+    });
+    section.pictures = await Promise.all(
+        req.files.map((file, i) => {
+            const pic = new Pictures({
+                name: req.body.picname[i],
+                imagePath: file.path
             });
-        }
-
-        await section.save();
-        res.redirect('/admin');
-    })
+            if (i === cover) {
+                section.cover = pic;
+            }
+            pic.section = section;
+            return pic.save();
+        }));
+    await section.save();
+    res.redirect('/admin');
 });
 
 

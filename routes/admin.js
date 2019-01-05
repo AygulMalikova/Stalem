@@ -29,8 +29,10 @@ const loggedOutOnly = (req, res, next) => {
 };
 
 router.get('/login', function(req, res) {
-    res.render('login', { user: req.user });
+    var nav = false;
+    res.render('login', { user: req.user, nav: nav});
 });
+
 
 router.post('/login',
     passport.authenticate('local'),
@@ -40,12 +42,14 @@ router.post('/login',
         res.redirect('/admin');
     });
 
+
 router.get('/admin', loggedInOnly, function (req, res) {
-    Sections.find({}, function (err, sections) {
+    var nav = true;
+    Sections.find({}).populate('cover').exec(function(err, sections) {
         if (err){
             next(err);
         } else {
-            res.render('index', {sections: sections, authorized: true});
+            res.render('index', {sections: sections, authorized: true, nav: nav});
         }
     });
 });
@@ -72,19 +76,15 @@ router.post("/register", (req, res, next) => {
 });
 
 
-router.get('/admin', loggedInOnly, function (req, res) {
-    res.render('admin');
-});
-
-
 router.get('/settings', loggedInOnly, function (req, res) {
+    var nav = false;
     var id = req.user.id;
     Admin.findById(id, function (err, admin) {
         if (err) {
             next(err);
         }
         else {
-            res.render('settings', {admin: admin});
+            res.render('settings', {admin: admin, nav: nav});
         }
     });
 });
@@ -135,10 +135,12 @@ router.get('/logout', loggedInOnly, function(req, res){
 
 
 router.get('/addSection', loggedInOnly, function (req, res) {
-    res.render('addSection');
+    var nav = false;
+    res.render('addSection', {nav: nav});
 });
 
-router.post('/addSection', upload.array('file', 4), loggedInOnly, async (req, res, next) => {
+router.post('/addSection', upload.array('file', 9), loggedInOnly, async (req, res, next) => {
+    var nav = false;
     const cover = Number(req.body.cover);
     const section = new Sections({
         name: req.body.sectionName,

@@ -1,4 +1,17 @@
-<% include partials/header.ejs%>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Stalem</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="/public/stylesheets/styles.css">
+    <link rel="stylesheet" href="/public/stylesheets/nav.css">
+</head>
+<body>
+
+<% include partials/nav.ejs%>
 
     <div class="container hero">
         <div class="row">
@@ -66,7 +79,19 @@
                         <img src="/public/images/divider.svg" alt="">
                     </div>
                 <%}%>
+
             <% })%>
+                <% if (authorized) { %>
+                    <% if (sections.length !=0) {%>
+                        <div class="divider">
+                            <img src="/public/images/divider.svg" alt="">
+                        </div>
+                    <%}%>
+
+                    <div class="caption col-sm-10 offset-sm-1">
+                        <a class="new-section" href="/addSection"><h2>New section </h2></a>
+                    </div>
+                <% }%>
 
         </div>
     </div>
@@ -75,8 +100,19 @@
     <div class="container info" id="about">
         <div class="inner">
             <div class="caption">
-                <h1>About me</h1>
-                <p>Dr Joanne Righetti is an animal behaviourist, educating the public and professionals in all aspects of the human–animal relationship. Her background is in zoology, with a PhD in animal behaviour and a counselling diploma – qualifications which enable her to work with all sorts of animals – including the human variety! Joanne likes to help pet owners understand their pet's behaviour and solve any pet behaviour problems. She also consults to a variety of organisations including non-profit organisations, commercial companies and councils and is involved in a variety of media including regular spots on radio. Joanne is an honorary associate of the Faculty of Veterinary Sciences, University of Sydney. Find out more about Joanne at </p>
+                <% if (authorized) { %>
+                    <div class="row about">
+                        <div class="edit">
+                            <img src="/public/images/edit.svg" alt="">
+                        </div>
+                        <h1>About me</h1>
+                    </div>
+                <%}
+                else {%>
+                        <h1>About me</h1>
+                    <%}%>
+                    <p>Dr Joanne Righetti is an animal behaviourist, educating the public and professionals in all aspects of the human–animal relationship. Her background is in zoology, with a PhD in animal behaviour and a counselling diploma – qualifications which enable her to work with all sorts of animals – including the human variety! Joanne likes to help pet owners understand their pet's behaviour and solve any pet behaviour problems. She also consults to a variety of organisations including non-profit organisations, commercial companies and councils and is involved in a variety of media including regular spots on radio. Joanne is an honorary associate of the Faculty of Veterinary Sciences, University of Sydney. Find out more about Joanne at </p>
+
             </div>
         </div>
     </div>
@@ -97,3 +133,7 @@
         </div>
     </div>
 <% include partials/footer.ejs%>
+
+<script type="text/javascript" src="/public/javascripts/nav.js"></script>
+
+</body>

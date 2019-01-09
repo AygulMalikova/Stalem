@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const CommentsSchema = new Schema({
     author: { type: String},
     text: { type: String},
-    data: {type: Date,
+    date: {type: Date,
         default: Date.now
     },
     picture:

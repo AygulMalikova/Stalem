@@ -29,6 +29,7 @@
 
 
       a{
+        display: inline-block;
         margin-bottom: 20px;
         font-weight: bold;
         font-size: 45px !important;
@@ -53,18 +54,6 @@
         border: none;
         color: #f5f1a9;
       }
-      //a.new-section {
-      //  font-weight: bold;
-      //  font-size: 40px !important;
-      //  list-style: none;
-      //  letter-spacing: -1px;
-      //  line-height: 60px;
-      //  color: #ffffff;
-      //  opacity: 1;
-      //  transform: translateY(20px);
-      //  border: none;
-      //}
-
     }
   }
   .caption h1{
@@ -93,10 +82,17 @@
       }
       .carousel-item {
         height: auto;
-        padding: 0 !important;
+        padding: 0;
+
+        .carousel-caption {
+          position: relative;
+          right: 0;
+          left: 0;
+        }
       }
       .carousel-indicators {
-        position: relative;
+        position: absolute;
+        top: 5px;
       }
     }
   }
@@ -110,6 +106,12 @@ section.awSlider img {
   background-size:     cover;
   pointer-events: none;
 
+}
+
+.comments {
+  width: 100%;
+  position: absolute;
+  bottom: 0;
 }
 
 section.awSlider:hover > img{
@@ -137,9 +139,15 @@ section.awSlider > img{
 }
 
 .card.card-block {
-  margin-top: 50px;
+  //margin-top: 50px;
   background: none;
+  top: 0;
   height: max-content;
+  //padding: 0;
+  //margin: 0;
+  //display: flex;
+  //float: left;
+  //align-items: stretch;
   .form {
     width: 100%;
   }
@@ -211,8 +219,8 @@ section.awSlider > img{
     }
   }
 
-  .comments {
-    width: 99%;
+  .comments-text {
+    width: auto;
     margin: 0;
     padding: 0 20px;
     color: #eeeeee;
@@ -247,5 +255,15 @@ hr {
   border: 0;
   border-top: 1px solid rgba(0,0,0,.1);
   background: linear-gradient(to top, rgba(233, 233, 233, 0), rgba(233, 233, 233, 0.75), rgba(233, 233, 233, 0));
+
+}
+
+.editSection {
+  display: inline-block;
+  width: 45px;
+  margin-left: 30px;
+  margin-bottom: 10px;
+}
+.editSection.active {
 
 }

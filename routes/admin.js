@@ -4,7 +4,14 @@ var passport = require('passport');
 var Admin = require('../models/admin');
 var Pictures = require('../models/picture');
 var Sections = require('../models/section');
+var Info = require('../models/info');
 
+var app = express();
+var http = require('http').Server(app);
+var io = require('socket.io')(http);
+io.on('connection', () =>{
+    console.log('a user is connected');
+});
 
 var multer = require('multer');
 var storage = multer.diskStorage({
@@ -30,15 +37,18 @@ const loggedOutOnly = (req, res, next) => {
 
 router.get('/login', function(req, res) {
     var nav = false;
-    res.render('login', { user: req.user, nav: nav});
+    Info.findOne({}, function (err, info) {
+        if (err) {
+            next(err);
+        }
+        res.render('login', { user: req.user, nav: nav, authorized: false, info: info});
+    })
 });
 
 
 router.post('/login',
     passport.authenticate('local'),
     function(req, res) {
-        // If this function gets called, authentication was successful.
-        // `req.user` contains the authenticated user.
         res.redirect('/admin');
     });
 
@@ -46,17 +56,35 @@ router.post('/login',
 router.get('/admin', loggedInOnly, function (req, res) {
     var nav = true;
     Sections.find({}).populate('cover').exec(function(err, sections) {
-        if (err){
+        Info.findOne({}, function (err, info) {
+            if (err){
+                next(err);
+            } else {
+                res.render('index', {sections: sections, authorized: true, nav: nav, info: info});
+            }
+        })
+    });
+});
+
+router.post('/admin', function (req, res) {
+    var about = req.body.text;
+    Info.findOne({}, function (err, info) {
+        info.about = about;
+        info.save();
+        if (err) {
             next(err);
         } else {
-            res.render('index', {sections: sections, authorized: true, nav: nav});
+            res.json({text: about});
         }
+
     });
 });
 
 
 router.get('/register', function(req, res) {
-    res.render('register', {});
+    Info.findOne({}, function (err, info) {
+        res.render('register', {info: info});
+    });
 });
 
 router.post("/register", (req, res, next) => {
@@ -84,7 +112,13 @@ router.get('/settings', loggedInOnly, function (req, res) {
             next(err);
         }
         else {
-            res.render('settings', {admin: admin, nav: nav});
+            Info.findOne({}, function (err, info) {
+                res.render('settings', {
+                    admin: admin,
+                    nav: nav,
+                    info: info
+                });
+            });
         }
     });
 });
@@ -136,10 +170,12 @@ router.get('/logout', loggedInOnly, function(req, res){
 
 router.get('/addSection', loggedInOnly, function (req, res) {
     var nav = false;
-    res.render('addSection', {nav: nav});
+    Info.findOne({}, function (err, info) {
+        res.render('addSection', { nav: nav, info: info, authorized: true});
+    });
 });
 
-router.post('/addSection', upload.array('file', 9), loggedInOnly, async (req, res, next) => {
+router.post('/addSection', upload.array('file', 50), loggedInOnly, async (req, res, next) => {
     var nav = false;
     const cover = Number(req.body.cover);
     const section = new Sections({
@@ -163,6 +199,40 @@ router.post('/addSection', upload.array('file', 9), loggedInOnly, async (req, re
     await section.save();
     res.redirect('/admin');
 });
+
+router.get('/editSection/:id', loggedInOnly, function (req, res) {
+    var nav = false;
+    const id = req.params.id;
+    Sections.findById(id).populate('pictures').exec(function (err, section) {
+        if (err) {
+            next(err);
+        }
+        else {
+            Info.findOne({}, function (err, info) {
+                if (err) {
+                    next(err);
+                }
+                res.render('editSection', { nav: nav, info: info, section: section, authorized: true});
+            });
+        }
+
+    })
+});
+
+
+// router.post('/editSection/:id', upload.array('file', 50), loggedInOnly, async (req, res, next) => {
+//     const id = req.params.id;
+//     const cover = Number(req.body.cover);
+//     var thisSection;
+//     Sections.findById(id, (err, section) => {
+//         thisSection = section;
+//         section.name = req.body.sectionName;
+//         section.description = req.body.sectionDescription;
+//         section.save();
+//     });
+//
+//     res.redirect('/admin');
+// });
 
 
 module.exports = router;

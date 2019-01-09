@@ -12,6 +12,8 @@ html, body{
   width: 100%;
   font-family: 'Dancing Script', sans-serif;
   background: black;
+  //background-color: rgb(0,0,0,0.8);
+  background-image: url("/public/images/golden-waves-3.svg");
   display: inline-block;
   a {
     text-decoration: none;
@@ -197,16 +199,10 @@ body > * {
     display: block;
     margin: 80px auto;
   }
-  //hr {
-  //  height: 2px;
-  //  background: linear-gradient(to left, rgba(233,233,233,0), rgba(173, 170, 170, 0.75), rgba(233,233,233,0));
-  //  margin: 70px 0;
-  //
-  //}
 }
 
 .frame {
-  background-color:#ddc;
+  //background-color:#ddc;
   border:solid 20px #eee;
   border-bottom-color:#fff;
   border-left-color:#eee;
@@ -215,35 +211,37 @@ body > * {
   border-top-color:#ddd;
   box-sizing:border-box;
   display:inline-block;
-  padding:20px;
+  padding:0px;
   position:relative;
   text-align:center;
-  &:before {
-    border-radius:2px;
-    bottom:-2vmin;
-    box-shadow:0 2px 5px 0 rgba(0,0,0,.25) inset;
-    content:"";
-    left:-2vmin;
-    position:absolute;
-    right:-2vmin;
-    top:-2vmin;
-  }
-  &:after {
-    border-radius:2px;
-    bottom:-2.5vmin;
-    box-shadow: 0 2px 5px 0 rgba(0,0,0,.25);
-    content:"";
-    left:-2.5vmin;
-    position:absolute;
-    right:-2.5vmin;
-    top:-2.5vmin;
-  }
+  //&:before {
+  //  border-radius:2px;
+  //  bottom:-2vmin;
+  //  box-shadow:0 2px 5px 0 rgba(0,0,0,.25) inset;
+  //  content:"";
+  //  left:-2vmin;
+  //  position:absolute;
+  //  right:-2vmin;
+  //  top:-2vmin;
+  //}
+  //&:after {
+  //  border-radius:2px;
+  //  bottom:-2.5vmin;
+  //  box-shadow: 0 2px 5px 0 rgba(0,0,0,.25);
+  //  content:"";
+  //  left:-2.5vmin;
+  //  position:absolute;
+  //  right:-2.5vmin;
+  //  top:-2.5vmin;
+  //}
 }
 
 //*********************
 .row.about {
 }
 .edit {
+  position: absolute;
+  cursor: pointer;
   margin-left: 5px;
   display: inline-block;
   width: 5%;
@@ -261,6 +259,7 @@ body > * {
   padding: 90px;
   margin: 90px auto;
   .inner{
+    width: 100%;
     padding: 25px;
     background: #e2e2e2;
     box-shadow: 9px 10px 60px 67px #e2e2e2;
@@ -283,6 +282,41 @@ body > * {
   }
 }
 
+.edit.hide {
+  display: none;
+}
+
+.editForm {
+  display: none;
+}
+
+.editForm.edit {
+  position: relative;
+  display: block;
+  width: 100%;
+  margin-bottom: 2rem;
+  textarea {
+    width: 100%;
+    font-family: "Roboto", sans-serif;
+    line-height: 30px;
+    min-height: min-content;
+    background: rgba(0,0,0,0);
+    font-size: 18px;
+    padding: 10px 0 !important;
+    border: none;
+    //border-bottom: 1px solid #757575;
+    resize: none;
+  }
+  textarea:focus {
+    outline: none;
+  }
+}
+
+
+.textAbout.hide {
+  display: none;
+}
+
 //***************
 .social {
   position: relative;
@@ -293,8 +327,8 @@ body > * {
   margin: 90px auto;
   .inner {
     width: 100%;
-    //background: #e2e2e2;
-    //box-shadow: 9px 10px 60px 67px #e2e2e2;
+    background: #e2e2e2;
+    box-shadow: 9px 10px 60px 67px #e2e2e2;
     .icons {
       text-align: center;
       margin: 0 auto;
@@ -343,9 +377,37 @@ footer {
 
 }
 
-
 @keyframes thread {
   0%   { width: 0%; }
   100% { width: 100%; }
+}
+button {
+  margin: 0 auto;
+  display: flex;
+  cursor: pointer;
+  letter-spacing: 1px;
+  background: rgba(0,0,0,0.3);
+  border: 2px solid rgba(179, 176, 122, 0.55);
+  color: #f5f1a9;
+  outline: none;
+  padding: 0 30px;
+  line-height: 44px;
+  height: auto;
+  border-radius: 30px;
+  width: auto;
+  text-transform: uppercase;
+  font-size: 16px;
+  font-weight: 500;
+}
+.btn-primary:hover{
+  background: rgba(0,0,0,0.3);
+  border: 2px solid #f5f1a9;
+  outline: none;
+}
+
+button:active {
+  outline: none;
+  background: #f5f1a9 !important;
+  color: white !important;
 }
 

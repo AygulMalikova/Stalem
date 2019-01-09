@@ -3,25 +3,43 @@ var router = express.Router();
 var Pictures = require('../models/picture');
 var Sections = require('../models/section');
 var Comments = require('../models/comment');
+var Info = require('../models/info');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
     var nav = true;
-    Sections.find({}).populate('cover').exec(function(err, sections) {
-        if (err){
+    Info.findOne({}, function (err, info) {
+        if (err) {
             next(err);
         } else {
-            let auth = false;
-            if (req.isAuthenticated()) {
-                auth = true;
-            }
-            res.render('index', {sections: sections, authorized: auth, nav: nav});
+            info.developer = "https://github.com/AygulMalikova";
+            info.save();
         }
+    });
+    Sections.find({}).populate('cover').exec(function(err, sections) {
+        Info.findOne({}, function (err, info) {
+            console.log(123);
+            if (err) {
+                next(err);
+            } else {
+                let auth = false;
+                if (req.isAuthenticated()) {
+                    auth = true;
+                }
+                res.render('index', {
+                    sections: sections,
+                    authorized: auth,
+                    nav: nav,
+                    info: info
+                });
+            }
+        })
     });
 });
 
 
 router.get('/portfolio', function (req, res, next) {
+    var nav = true;
     Sections.find({}).populate({
             path: 'pictures',
             populate: {
@@ -29,23 +47,23 @@ router.get('/portfolio', function (req, res, next) {
                 model: 'Comments'
             }
         }). exec(function(err, sections) {
-        if (err){
-            next(err);
-        } else {
-            let auth = false;
-            if (req.isAuthenticated()) {
-               auth = true;
-            }
-            res.render('portfolio', {sections: sections, authorized: auth})
-
-        }
+            Info.findOne({}, function (err, info) {
+                if (err){
+                    next(err);
+                } else {
+                    let auth = false;
+                    if (req.isAuthenticated()) {
+                        auth = true;
+                    }
+                    res.render('portfolio', {sections: sections, authorized: auth, nav: nav, info: info})
+                }
+            })
     });
 });
 
 
 router.post('/addComment/:id', function (req, res, next) {
     const id = req.params.id;
-    console.log(id);
     Pictures.findById(id).
         populate('comments').
         exec( function (err, pic) {

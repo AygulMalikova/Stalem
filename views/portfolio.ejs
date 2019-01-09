@@ -26,6 +26,11 @@
                             <a class="nav-link" id="<%= section.name.replace(" ", "") %>-tab" data-toggle="tab"
                                href="#<%= section.name.replace(" ", "") %>" role="tab"
                                aria-controls="<%= section.name.replace(" ", "") %>"><%= section.name %></a>
+                                <% if (authorized){ %>
+                                <a href="/editSection/<%=section._id%>">
+                                    <img class="editSection" src="/public/images/edit2.svg" alt="">
+                                </a>
+                                <%}%>
                         </li>
                     <% }) %>
                         <% if (authorized) {%>
@@ -55,8 +60,69 @@
                                     <% for (var j = 0; j < section.pictures.length; j++) { %>
                                         <% current = j%>
                                         <div class="carousel-item">
-                                            <img src="/<%= section.pictures[j].imagePath %>">
+                                            <img src="/<%= section.pictures[j].imagePath %>" data-id="<%= section.pictures[current]._id%>">
                                             <div class="carousel-caption d-none d-md-block"><%= section.pictures[j].name %></div>
+                                        </div>
+                                        <div class="comments" style="display: none" data-id="<%= section.pictures[current]._id%>">
+                                            <div class="container card card-block bg-faded">
+                                                <% for (var k = 0; k < section.pictures[current].comments.length; k++) { %>
+                                                    <hr>
+                                                        <div class="ver" style="float: left"> </div>
+                                                        <div class="comments-text">
+                                                            <div class="row">
+                                                            <strong class="name pull-left">
+                                                                <%= section.pictures[current].comments[k].author%>
+                                                            </strong>
+                                                            <span class="pull-right date">
+                                                                <% var day = section.pictures[current].comments[k].date.getDate()%>
+                                                                <% var month = section.pictures[current].comments[k].date.getMonth() + 1%>
+                                                                <% var year = section.pictures[current].comments[k].date.getFullYear()%>
+                                                                <%= day%>/
+                                                                <%= month%>/
+                                                                <%= year%>
+                                                            </span>
+                                                            </div>
+                                                            <div class="row">
+                                                            <p class="text pull-left">
+                                                                <%= section.pictures[current].comments[k].text%>
+                                                            </p>
+                                                            <span class="pull-right date">
+                                                                <% var hour = section.pictures[current].comments[k].date.getHours()%>
+                                                                <% var minute = section.pictures[current].comments[k].date.getMinutes()%>
+                                                                <% var second = section.pictures[current].comments[k].date.getSeconds()%>
+                                                                <%= hour%>:<%= minute%>:<%= second%>
+                                                            </span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="ver" style="float: right"> </div>
+
+                                                    <hr>
+                                                <% } %>
+                                            </div>
+
+
+                                            <div class="form">
+                                                <form action="/addComment/<%= section.pictures[current]._id%>"
+                                                      class="form form-inline" method="POST" autocomplete="off">
+                                                    <div class="group comment">
+                                                        <textarea type="text" name="text" required></textarea>
+                                                        <span class="highlight"></span>
+                                                        <span class="bar"></span>
+                                                        <label>Comment</label>
+                                                    </div>
+
+                                                    <div class="group author">
+                                                        <input value="" type="text" name="author" required>
+                                                        <span class="highlight"></span>
+                                                        <span class="bar"></span>
+                                                        <label>Author</label>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <button>Add</button>
+                                                    </div>
+                                                </form>
+                                            </div>
                                         </div>
                                     <% } %>
 
@@ -77,51 +143,6 @@
                                             <li data-target="#<%= `id` + section._id %>" data-slide-to="<%= i %>"></li>
                                         <% } %>
                                     </ol>
-
-                                    <div class="container card card-block bg-faded">
-                                        <% for (var k = 0; k < section.pictures[current].comments.length; k++) { %>
-                                            <hr>
-                                            <div class="row">
-                                                <div class="ver" style="float: left"> </div>
-                                                <div class="comments">
-                                                    <strong class="name">
-                                                        <%= section.pictures[current].comments[k].author%>
-                                                    </strong>
-                                                    <span class="pull-right date">
-                                                <%= section.pictures[current].comments[k].date%>
-                                                    </span>
-                                                    <p class="text">
-                                                        <%= section.pictures[current].comments[k].text%>
-                                                    </p>
-                                                </div>
-                                                <div class="ver" style="float: right"> </div>
-                                            </div>
-                                            <hr>
-                                        <% } %>
-                                    </div>
-
-
-                                    <div class="form">
-                                        <form action="/addComment/<%= section.pictures[current]._id%>" class="form form-inline" method="POST" autocomplete="off">
-                                            <div class="group comment">
-                                                <textarea type="text" name="text" required></textarea>
-                                                <span class="highlight"></span>
-                                                <span class="bar"></span>
-                                                <label>Comment</label>
-                                            </div>
-
-                                            <div class="group author">
-                                                <input value="" type="text" name="author" required>
-                                                <span class="highlight"></span>
-                                                <span class="bar"></span>
-                                                <label>Author</label>
-                                            </div>
-
-                                            <div class="form-group">
-                                                <button>Add</button>
-                                            </div>
-                                        </form>
-                                    </div>
                                 </div>
                             </div>
 

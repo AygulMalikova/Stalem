@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Stalem</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="/public/stylesheets/styles.css">
+    <link rel="stylesheet" href="/public/stylesheets/login.css">
+    <link rel="stylesheet" href="/public/stylesheets/nav.css">
+</head>
+<body>
+
+<% include partials/nav.ejs%>
+
+<img src="/public/images/hero.jpg" class="bg" alt=""/>
+<div class="content">
+    <div class="header">
+        <div class="caption">
+            <h1>New Section</h1>
+        </div>
+    </div>
+
+    <div class="container form section">
+        <div class="blur"></div>
+        <div class="form">
+            <form action="/editSection/<%=section._id%>" method="POST" enctype="multipart/form-data">
+                <div class="group">
+                    <input type="text" name="sectionName" value="<%=section.name%>" required>
+                    <span class="highlight"></span>
+                    <span class="bar"></span>
+                    <label>Title</label>
+                </div>
+
+                <div class="group">
+                    <textarea rows="3" type="text" name="sectionDescription" required><%= section.description%></textarea>
+                    <span class="highlight"></span>
+                    <span class="bar"></span>
+                    <label>Description</label>
+                </div>
+
+                <br><div class="container">
+                    <div class="row">
+                        <% for (var i = 0; i < section.pictures.length; i++) { %>
+                            <div class="col-lg-4 imgUp">
+                                <div class="imagePreview" style="background-image: url('<%= section.pictures[i].imagePath%>');">
+                                <img src="/public/images/pic.svg" style="opacity: 0" alt="">
+                                </div>
+                                <label class="btn btn-primary">
+                                Upload<input type="file" name = "file" accept="image/*" class="uploadFile img" value="Upload Photo"
+                        style="width: 0px;height: 0px;overflow: scroll;">
+                                </label>
+                                <i class="fa fa-times del"></i>
+                                <div class="group file">
+                                <input class="file" type="text" name="picname" value="<%= section.pictures[i].name%>">
+                                <span class="highlight file"></span>
+                                <span class="bar file"></span>
+                                <label class="file">Name</label>
+                                <input class="cover" type="radio" name="cover" value="0" checked>
+                        </div>
+                        </div><!-- col-2 -->
+                        <%}%>
+                            <i class="fa fa-plus imgAdd"></i>
+                    </div><!-- row -->
+                </div><!-- container -->
+                <div class="form-group">
+                    <button>Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $.uploadPreview({
+            input_field: "#image-upload",
+            preview_box: "#image-preview",
+            label_field: "#image-label"
+        });
+    });
+</script>
+
+<% include partials/footer.ejs%>
+
+<script type="text/javascript" src="/public/javascripts/jquery.uploadPreview.min.js"></script>
+<script type="text/javascript" src="/public/javascripts/newSection.js"></script>
+<script type="text/javascript" src="/public/javascripts/form.js"></script>
+
+</body>

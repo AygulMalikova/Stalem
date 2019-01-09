@@ -1,24 +1,26 @@
 var counter = 0;
 
 $(".imgAdd").click(function(){
-    counter++;
-    $(this).closest(".row").find('.imgAdd').before(
-        '<div class="col-lg-4 imgUp">\n' +
-        '<div class="imagePreview">\n' +
-        '<img src="/public/images/pic.svg" alt="">\n' +
-        '</div>\n' +
-        '<label class="btn btn-primary">\n' +
-        'Upload<input type="file" name = "file" accept="image/*" class="uploadFile img" value="Upload Photo"\n' +
-        'style="width:0px;height:0px;overflow:hidden;"></label><i class="fa fa-times del"></i>' +
-        '</label>\n' +
-        '<div class="group file">\n' +
-        '<input class="file" type="text" name="picname">\n' +
-        '<span class="highlight file"></span>\n' +
-        '<span class="bar file"></span>\n' +
-        '<label class="file">Name</label>\n' +
-        '<input class="cover" type="radio" name = "cover" value="' + counter + '">\n' +
-        '</div>');
-    console.log(counter);
+    if (counter < 50) {
+        counter++;
+        $(this).closest(".row").find('.imgAdd').before(
+            '<div class="col-lg-4 imgUp">\n' +
+            '<div class="imagePreview">\n' +
+            '<img src="/public/images/pic.svg" alt="">\n' +
+            '</div>\n' +
+            '<label class="btn btn-primary">\n' +
+            'Upload<input type="file" name = "file" accept="image/*" class="uploadFile img" value="Upload Photo"\n' +
+            'style="width:0px;height:0px;overflow:hidden;"></label>' +
+            '<i class="fa fa-times del"></i>' +
+            '<div class="group file">\n' +
+            '<input class="file" type="text" name="picname">\n' +
+            '<span class="highlight file"></span>\n' +
+            '<span class="bar file"></span>\n' +
+            '<label class="file">Name</label>\n' +
+            '<input class="cover" type="radio" name = "cover" value="' + counter + '">\n' +
+            '</div>');
+    }
+
 });
 
 $(document).on("click", "i.del" , function() {

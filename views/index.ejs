@@ -111,8 +111,16 @@
                 else {%>
                         <h1>About me</h1>
                     <%}%>
-                    <p>Dr Joanne Righetti is an animal behaviourist, educating the public and professionals in all aspects of the human–animal relationship. Her background is in zoology, with a PhD in animal behaviour and a counselling diploma – qualifications which enable her to work with all sorts of animals – including the human variety! Joanne likes to help pet owners understand their pet's behaviour and solve any pet behaviour problems. She also consults to a variety of organisations including non-profit organisations, commercial companies and councils and is involved in a variety of media including regular spots on radio. Joanne is an honorary associate of the Faculty of Veterinary Sciences, University of Sydney. Find out more about Joanne at </p>
-
+                    <p class="textAbout"><%= info.about%></p>
+                    <div class="editForm">
+                        <form action="/admin" method="POST" autocomplete="off">
+                            <textarea rows="3" type="text" name="text" id="textarea" required></textarea>
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label></label>
+                            <button id="send">Save</button>
+                        </form>
+                    </div>
             </div>
         </div>
     </div>
@@ -120,13 +128,13 @@
     <div class="container social" id="contact">
         <div class="inner">
             <div class="container icons">
-                <a href="https://vk.com/doll_maker" target="_blank">
+                <a href="<%= info.vk%>" target="_blank">
                     <img src="/public/images/vk.svg" alt="">
                 </a>
                 <a href="" target="_blank">
                     <img src="/public/images/telegram.svg" alt="">
                 </a>
-                <a href="https://www.instagram.com/stannie_lem/" target="_blank">
+                <a href="<%= info.instagram%>" target="_blank">
                     <img class="instagram" src="/public/images/instagram.svg" alt="">
                 </a>
             </div>
@@ -134,6 +142,8 @@
     </div>
 <% include partials/footer.ejs%>
 
+<script src=”/socket.io/socket.io.js”></script>
 <script type="text/javascript" src="/public/javascripts/nav.js"></script>
+<script type="text/javascript" src="/public/javascripts/edit.js"></script>
 
 </body>

@@ -5,7 +5,7 @@ const CommentsSchema = new Schema({
     author: { type: String},
     text: { type: String},
     date: {type: Date,
-        default: Date.now
+        default: Date.now()
     },
     picture:
         {

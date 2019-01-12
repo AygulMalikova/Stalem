@@ -16,6 +16,23 @@
 <body>
 
 <% include partials/nav.ejs%>
+<div class="container nav-menu">
+    <div class="nav navbar-nav">
+        <ul class="menu">
+            <a href="/#portfolio"><li class="link">Portfolio</li></a>
+            <hr>
+            <a href="/#about"><li class="link">About</li></a>
+            <hr>
+            <a href="/#contact"><li class="link">Contact</li></a>
+            <% if (authorized) {%>
+                <hr>
+                <a href="/settings"><li class="link">Settings</li></a>
+            <%}%>
+        </ul>
+    </div>
+    <div class="overlay"></div>
+</div>
+
 <div class="content portfolio container-fluid">
     <div class="row">
         <div class="col col-3">
@@ -67,35 +84,47 @@
                                             <div class="container card card-block bg-faded">
                                                 <% for (var k = 0; k < section.pictures[current].comments.length; k++) { %>
                                                     <hr>
-                                                        <div class="ver" style="float: left"> </div>
-                                                        <div class="comments-text">
+                                                    <div class="comment-block">
+                                                        <div class="ver left"> </div>
+                                                        <div class="container comments-text">
                                                             <div class="row">
-                                                            <strong class="name pull-left">
-                                                                <%= section.pictures[current].comments[k].author%>
-                                                            </strong>
-                                                            <span class="pull-right date">
-                                                                <% var day = section.pictures[current].comments[k].date.getDate()%>
-                                                                <% var month = section.pictures[current].comments[k].date.getMonth() + 1%>
-                                                                <% var year = section.pictures[current].comments[k].date.getFullYear()%>
-                                                                <%= day%>/
+                                                                <strong class="name pull-left">
+                                                                    <%= section.pictures[current].comments[k].author%>
+                                                                </strong>
+                                                                <span class="pull-right date">
+                                                                    <% var day = section.pictures[current].comments[k].date.getDate()%>
+                                                                    <% var month = section.pictures[current].comments[k].date.getMonth() + 1%>
+                                                                    <% var year = section.pictures[current].comments[k].date.getFullYear()%>
+                                                                    <%= day%>/
                                                                 <%= month%>/
                                                                 <%= year%>
                                                             </span>
                                                             </div>
                                                             <div class="row">
-                                                            <p class="text pull-left">
-                                                                <%= section.pictures[current].comments[k].text%>
-                                                            </p>
-                                                            <span class="pull-right date">
-                                                                <% var hour = section.pictures[current].comments[k].date.getHours()%>
-                                                                <% var minute = section.pictures[current].comments[k].date.getMinutes()%>
-                                                                <% var second = section.pictures[current].comments[k].date.getSeconds()%>
-                                                                <%= hour%>:<%= minute%>:<%= second%>
+                                                                <p class="text pull-left">
+                                                                    <%= section.pictures[current].comments[k].text%>
+                                                                </p>
+                                                                <span class="pull-right date">
+                                                                    <% var hour = section.pictures[current].comments[k].date.getHours()
+                                                                        if (hour < 10) {
+                                                                            hour = '0' + hour;
+                                                                        }
+
+                                                                        var minute = section.pictures[current].comments[k].date.getMinutes()
+                                                                        if (minute < 10) {
+                                                                            minute = '0' + minute;
+                                                                        }
+
+                                                                        var second = section.pictures[current].comments[k].date.getSeconds()
+                                                                        if (second < 10) {
+                                                                            second = '0' + second;
+                                                                        }%>
+                                                                    <%= hour%>:<%= minute%>:<%= second%>
                                                             </span>
                                                             </div>
                                                         </div>
-                                                        <div class="ver" style="float: right"> </div>
-
+                                                        <div class="ver right"> </div>
+                                                    </div>
                                                     <hr>
                                                 <% } %>
                                             </div>

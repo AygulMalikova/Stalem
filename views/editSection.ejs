@@ -20,14 +20,18 @@
 <div class="content">
     <div class="header">
         <div class="caption">
-            <h1>New Section</h1>
+            <h1>Edit Section</h1>
         </div>
     </div>
 
     <div class="container form section">
         <div class="blur"></div>
+        <form id="delete" action="/deleteSection/<%= section._id%>?_method=DELETE" method="POST">
+            <button class="ui red basic button">Delete</button>
+        </form>
+
         <div class="form">
-            <form action="/editSection/<%=section._id%>" method="POST" enctype="multipart/form-data">
+            <form action="/editSection/<%= section._id%>?_method=PUT" method="POST" enctype="multipart/form-data">
                 <div class="group">
                     <input type="text" name="sectionName" value="<%=section.name%>" required>
                     <span class="highlight"></span>
@@ -50,11 +54,12 @@
                                 <img src="/public/images/pic.svg" style="opacity: 0" alt="">
                                 </div>
                                 <label class="btn btn-primary">
-                                Upload<input type="file" name = "file" accept="image/*" class="uploadFile img" value="Upload Photo"
+                                Upload<input type="file" name = "file" accept="image/*" class="uploadFile img" value="<%= section.pictures[i].imagePath%>"
                         style="width: 0px;height: 0px;overflow: scroll;">
                                 </label>
                                 <i class="fa fa-times del"></i>
                                 <div class="group file">
+                                <input type="hidden" name="pic_id" value="<%= section.pictures[i]._id%>">
                                 <input class="file" type="text" name="picname" value="<%= section.pictures[i].name%>">
                                 <span class="highlight file"></span>
                                 <span class="bar file"></span>

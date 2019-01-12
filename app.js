@@ -5,6 +5,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var sassMiddleware = require('node-sass-middleware');
 var session = require('express-session');
+var methodOverride = require('method-override');
 var bodyParser = require('body-parser');
 var Admin = require('./models/admin');
 var Picture = require('./models/picture');
@@ -33,6 +34,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(expressSanitizer());
+app.use(methodOverride('_method'));
 // app.use(session({ keys: ['secretkey1', 'secretkey2', '...'] }));
 const development = true;
 app.use(sassMiddleware({

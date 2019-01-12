@@ -12,12 +12,10 @@
   .row {
     width: 100%;
   }
-
   .navbar-fixed-left{
     margin-bottom: 100px;
-    position: fixed;
+    //position: fixed;
     opacity: 1;
-
 
     .menu {
       display: flex;
@@ -26,7 +24,6 @@
       text-align: center;
       padding: 20px;
       border-bottom: none;
-
 
       a{
         display: inline-block;
@@ -70,10 +67,12 @@
       .carousel-control-next {
         height: 100%;
         max-height: 600px;
+        z-index: 10;
       }
       .carousel-control-prev{
         height: 100%;
         max-height: 600px;
+        z-index: 10;
       }
       .carousel-inner {
         position: relative;
@@ -83,8 +82,11 @@
       .carousel-item {
         height: auto;
         padding: 0;
+        z-index: 1;
+        position: relative;
 
         .carousel-caption {
+          font-size: 30px;
           position: relative;
           right: 0;
           left: 0;
@@ -92,7 +94,9 @@
       }
       .carousel-indicators {
         position: absolute;
-        top: 5px;
+        top: 570px;
+        height: 0;
+        z-index: 10;
       }
     }
   }
@@ -109,9 +113,11 @@ section.awSlider img {
 }
 
 .comments {
+  background: rgba(0, 0, 0, 0.4);
   width: 100%;
   position: absolute;
   bottom: 0;
+  z-index: 2;
 }
 
 section.awSlider:hover > img{
@@ -138,16 +144,15 @@ section.awSlider > img{
   opacity:.3;
 }
 
+.card {
+  border: none;
+}
+
 .card.card-block {
   //margin-top: 50px;
   background: none;
-  top: 0;
-  height: max-content;
-  //padding: 0;
-  //margin: 0;
-  //display: flex;
-  //float: left;
-  //align-items: stretch;
+  //background: rgb(0,0,0,0.6);
+
   .form {
     width: 100%;
   }
@@ -215,23 +220,30 @@ section.awSlider > img{
       text-transform: uppercase;
       font-size: 16px;
       font-weight: 500;
-
     }
   }
 
   .comments-text {
-    width: auto;
+    width: 100%;
     margin: 0;
     padding: 0 20px;
     color: #eeeeee;
     .name {
-      font-size: 30px;
+      left: 25px;
       font-weight: bold;
+      font-size: 35px;
+      line-height: 1;
     }
     .date {
+      position: absolute;
       font-size: 20px;
+      right: 25px;
     }
     .text {
+      text-align: left;
+      width: 60%;
+      left: 25px;
+      font-size: 20px;
       font-family: "Roboto", sans-serif;
     }
   }
@@ -255,7 +267,18 @@ hr {
   border: 0;
   border-top: 1px solid rgba(0,0,0,.1);
   background: linear-gradient(to top, rgba(233, 233, 233, 0), rgba(233, 233, 233, 0.75), rgba(233, 233, 233, 0));
+}
+.comment-block {
+  display: flex;
+  flex-direction: row;
 
+}
+.comments-text {
+  flex-grow: 1;
+}
+.ver.left, .ver.right {
+  flex-grow: 0;
+  flex-basis: 3px;
 }
 
 .editSection {

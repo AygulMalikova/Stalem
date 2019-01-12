@@ -5,6 +5,12 @@ $(document).ready(() => {
     if (path.indexOf('portfolio') > -1) {
         $(`[href="#${hash}"]`).addClass('active');
         $(`#${hash}`).addClass('show active');
+
+        var id = $('section.awSlider .carousel').find('.carousel-item.active > img').data('id');
+        $('.comments').fadeOut().css('display', 'none');
+        const current = $(`.comments[data-id="${id}"]`);
+        current.show().fadeTo(1);
+        $('section.awSlider .carousel').find('.carousel-item.active').css('padding-bottom', current.height());
         carousel();
     }
 });
@@ -19,8 +25,10 @@ $(`.nav-link`).click((e)=> {
 
     $(`#${hash}`).addClass('active');
     carousel();
-
 });
+
+
+
 
 function carousel() {
 // Activate Carousel
@@ -29,7 +37,6 @@ function carousel() {
     }).on('slid.bs.carousel', function () {
         var bscn = $(this).find('.carousel-item.active > img').attr('src');
         $('section.awSlider > img').attr('src', bscn);
-
         var id = $(this).find('.carousel-item.active > img').data('id');
         $('.comments').fadeOut().css('display', 'none');
 
@@ -37,11 +44,6 @@ function carousel() {
         current.show().fadeTo(1);
 
         $(this).find('.carousel-item.active').css('padding-bottom', current.height());
-
-        // Получаешь id текущего
-        // Получаешь нужную форму и комментарии
-        // Показываешь только ту форму и комментарии, которые тебе нужны
-
         centrateBlurredBGs();
     });
 
@@ -71,3 +73,4 @@ function centrateBlurredBGs() {
 }
 
 $(document).resize(() => centrateBlurredBGs());
+

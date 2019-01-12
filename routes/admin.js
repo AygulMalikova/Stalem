@@ -175,6 +175,7 @@ router.get('/addSection', loggedInOnly, function (req, res) {
     });
 });
 
+
 router.post('/addSection', upload.array('file', 50), loggedInOnly, async (req, res, next) => {
     var nav = false;
     const cover = Number(req.body.cover);
@@ -220,19 +221,61 @@ router.get('/editSection/:id', loggedInOnly, function (req, res) {
 });
 
 
-// router.post('/editSection/:id', upload.array('file', 50), loggedInOnly, async (req, res, next) => {
-//     const id = req.params.id;
-//     const cover = Number(req.body.cover);
-//     var thisSection;
-//     Sections.findById(id, (err, section) => {
-//         thisSection = section;
-//         section.name = req.body.sectionName;
-//         section.description = req.body.sectionDescription;
-//         section.save();
-//     });
-//
-//     res.redirect('/admin');
-// });
+router.put('/editSection/:id', upload.array('file', 50), loggedInOnly, async (req, res, next) => {
+    const id = req.params.id;
+    const cover = Number(req.body.cover);
+    var section = {
+        name: req.body.sectionName,
+        description: req.body.sectionDescription,
+        pictures: await Promise.all(
+            req.files.map((file, i) => {
+            const pic = new Pictures({
+                name: req.body.picname[i],
+                imagePath: file.path
+            });
+            if (i === cover) {
+                section.cover = pic;
+            }
+            pic.section = section;
+            return pic.save();
+        })),
+    };
+    Sections.findByIdAndUpdate(id, section, {new : true}, function (err, sec) {
+       // section.save();
+       res.redirect('/portfolio');
+    });
+    //
+    // Sections.findById(id, async (err, section) => {
+    //     section.name = req.body.sectionName;
+    //     section.description = req.body.sectionDescription;
+    //
+    //     section.pictures = await Promise.all(
+    //         req.files.map((file, i) => {
+    //             const pic = new Pictures({
+    //                 name: req.body.picname[i],
+    //                 imagePath: file.path
+    //             });
+    //             if (i === cover) {
+    //                 section.cover = pic;
+    //             }
+    //             pic.section = section;
+    //             return pic.save();
+    //         }));
+    //     await section.save();
+    //     res.redirect('/admin');
+    // });
+});
+
+//Destroy
+router.delete('/deleteSection/:id', function (req, res) {
+    Sections.findByIdAndRemove(req.params.id, function (err) {
+        if (err) {
+            console.log(err);
+        } else {
+            res.redirect('/portfolio');
+        }
+    })
+});
 
 
 module.exports = router;

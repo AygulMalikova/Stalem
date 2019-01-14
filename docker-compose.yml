@@ -18,6 +18,8 @@ services:
 
   mongodb:
     image: mongo
+    volumes:
+      - .:/usr/src/app
     networks:
       - app-network
 

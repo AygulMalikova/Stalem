@@ -1,19 +1,22 @@
-FROM node:8.15.0-alpine
+FROM node:10
 
 WORKDIR /usr/src/app
 
-VOLUME [ "/usr/src/app" ]
+# VOLUME [ "/usr/src/app" ]
+
+ADD package.json .
+ADD package-lock.json .
+
+RUN rm -rf node_modules && npm install && rm -rf ~/tmp/*
 
 ADD . .
 
-RUN rm -rf node_modules && npm install --no-cache && rm -rf ~/tmp/*
-
-
-ENV NODE_ENV=production
+# ENV NODE_ENV=production
 ENV DATABASE=mongodb://mongodb:27017/stalem
 ENV PORT=3000
+# ENV PATH /usr/src/app/node_modules/.bin:$PATH
 
 EXPOSE 3000
 
-CMD npm start
+CMD node ./bin/www
 

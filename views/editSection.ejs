@@ -27,7 +27,7 @@
     <div class="container form section">
         <div class="blur"></div>
         <form id="delete" action="/deleteSection/<%= section._id%>?_method=DELETE" method="POST">
-            <button class="ui red basic button">Delete</button>
+            <button onclick="confirmDelete()" class="ui red basic button">Delete</button>
         </form>
 
         <div class="form">
@@ -49,8 +49,9 @@
                 <br><div class="container">
                     <div class="row">
                         <% for (var i = 0; i < section.pictures.length; i++) { %>
-                            <div class="col-lg-4 imgUp">
-                                <div class="imagePreview" style="background-image: url('<%= section.pictures[i].imagePath%>');">
+                            <div class="col-lg-4 imgUp" data-id="<%= section.pictures[i]._id%>">
+                                <div class="imagePreview">
+                                    <input type="hidden" class="img_path" name="img_path" value="<%= section.pictures[i].imagePath%>">
                                 <img src="/public/images/pic.svg" style="opacity: 0" alt="">
                                 </div>
                                 <label class="btn btn-primary">
@@ -58,13 +59,18 @@
                         style="width: 0px;height: 0px;overflow: scroll;">
                                 </label>
                                 <i class="fa fa-times del"></i>
+
                                 <div class="group file">
                                 <input type="hidden" name="pic_id" value="<%= section.pictures[i]._id%>">
                                 <input class="file" type="text" name="picname" value="<%= section.pictures[i].name%>">
                                 <span class="highlight file"></span>
                                 <span class="bar file"></span>
                                 <label class="file">Name</label>
-                                <input class="cover" type="radio" name="cover" value="0" checked>
+                                    <% if (section.pictures[i]._id == section.cover._id) { %>
+                                        <input class="cover" type="radio" name="cover" value="<%= i%>" checked>
+                                    <%} else {%>
+                                        <input class="cover" type="radio" name="cover" value="<%= i%>">
+                                    <%}%>
                         </div>
                         </div><!-- col-2 -->
                         <%}%>
@@ -72,7 +78,7 @@
                     </div><!-- row -->
                 </div><!-- container -->
                 <div class="form-group">
-                    <button>Save</button>
+                    <button class="submit">Save</button>
                 </div>
             </form>
         </div>
@@ -91,8 +97,13 @@
 
 <% include partials/footer.ejs%>
 
+<script>
+    function confirmDelete() {
+        confirm("Are you sure?");
+    }
+</script>
 <script type="text/javascript" src="/public/javascripts/jquery.uploadPreview.min.js"></script>
-<script type="text/javascript" src="/public/javascripts/newSection.js"></script>
+<script type="text/javascript" src="/public/javascripts/editSection.js"></script>
 <script type="text/javascript" src="/public/javascripts/form.js"></script>
 
 </body>

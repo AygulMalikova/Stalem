@@ -1,5 +1,13 @@
-// let counter = $('.imgUp').length;
-let counter = 0;
+let counter = $('.imgUp').length - 1;
+
+for (let i = 0; i <= counter; i++) {
+    let img_path = document.getElementsByClassName('img_path')[i].value;
+    console.log(img_path);
+    document.getElementsByClassName('imagePreview')[i].setAttribute("background-image", "url(" + img_path + ")");
+    document.getElementsByClassName('imagePreview')[i].setAttribute("background-image", "url(" + img_path + ")");
+}
+
+console.log(counter);
 
 $(".imgAdd").click(function(){
     if (counter < 50) {
@@ -20,13 +28,32 @@ $(".imgAdd").click(function(){
             '<label class="file">Name</label>\n' +
             '<input class="cover" type="radio" name = "cover" value="' + counter + '">\n' +
             '</div>');
+        console.log(counter);
     }
 
 });
 
+
 $(document).on("click", "i.del" , function() {
     counter--;
     $(this).parent().remove();
+    const _id = $(this).closest('.imgUp').data('id');
+    if (_id) {
+        console.log(_id);
+        fetch('/deleteImage/'+_id, {
+            method: 'DELETE',
+            headers: {
+                "Content-Type": "application/json"
+            },
+        }).then(response => response.json())
+        .then((response) => {
+
+            console.log(response);
+        }).catch(
+            error => console.log(error) // Handle the error response object
+        );
+        return false;
+    };
 });
 
 

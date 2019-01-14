@@ -56,7 +56,9 @@
                     </div>
                     <div class="frame image col-sm-5 offset-sm-1">
                         <a href="/portfolio/#<%=  section.name.replace(" ", "")%>">
-                            <img src="/<%= section.cover.imagePath%>">
+                            <% if (section.cover) {%>
+                                <img src="/<%= section.cover.imagePath%>">
+                            <%}%>
                         </a>
                     </div>
                 </div>
@@ -65,7 +67,9 @@
                 <div class="row item">
                     <div class="frame image col-sm-5">
                         <a href="/portfolio/#<%=  section.name.replace(" ", "")%>">
-                            <img src="/<%= section.cover.imagePath%>">
+                            <% if (section.cover) {%>
+                                <img src="/<%= section.cover.imagePath%>">
+                            <%}%>
                         </a>
                     </div>
                     <div class="caption col-sm-6 offset-sm-1">

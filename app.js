@@ -15,6 +15,7 @@ var mongoose = require('mongoose');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var multer = require('multer');
+//var RedisStore = require('connect-redis')(express);
 
 
 var expressSanitizer = require('express-sanitizer');
@@ -52,7 +53,7 @@ app.use(
         resave: false,
         saveUninitialized: true,
         secret:
-           "Some secret message"
+           "Some secret message",
     })
 );
 

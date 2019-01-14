@@ -32,7 +32,7 @@ html, body{
 }
 
 img.bg {
-  min-height: 100%;
+  min-height: 100vh;
   min-width: 1024px;
 
   /* Set up proportionate scaling */
@@ -63,7 +63,7 @@ img.bg {
     font-weight: 300;
     letter-spacing: -3px;
     line-height: 160px;
-    font-size: 120px;
+    font-size: 7.5rem;
     background: linear-gradient(to bottom, #fefcea 31%, #f1da36 100%);
     background: #fefcea; /* Old browsers */
     background: -moz-linear-gradient(top, #fefcea 31%, #f1da36 100%); /* FF3.6-15 */
@@ -410,5 +410,9 @@ button:active {
   outline: none;
   background: #f5f1a9 !important;
   color: white !important;
+}
+
+button:focus, button:hover {
+  outline: none;
 }
 

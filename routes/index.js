@@ -4,6 +4,8 @@ var Pictures = require('../models/picture');
 var Sections = require('../models/section');
 var Comments = require('../models/comment');
 var Info = require('../models/info');
+const queryString = require('query-string');
+
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -40,6 +42,7 @@ router.get('/', function(req, res, next) {
 
 router.get('/portfolio', function (req, res, next) {
     var nav = true;
+    // console.log(location.hash);
     Sections.find({}).populate({
             path: 'pictures',
             populate: {
@@ -73,11 +76,11 @@ router.post('/addComment/:id', function (req, res, next) {
             Comments.create({text: req.body.text, author: req.body.author, picture: pic}, function (err, comment) {
                 if (err) {
                     next(err);
+                    res.json({success: false});
                 } else {
-                    console.log(comment);
                     pic.comments.push(comment);
                     pic.save();
-                    res.redirect('/portfolio/');
+                    res.json({success: true});
                 }
             })
         }

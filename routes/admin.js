@@ -5,13 +5,14 @@ var Admin = require('../models/admin');
 var Pictures = require('../models/picture');
 var Sections = require('../models/section');
 var Info = require('../models/info');
+var Comments = require('../models/comment');
 
 var app = express();
-var http = require('http').Server(app);
-var io = require('socket.io')(http);
-io.on('connection', () =>{
-    console.log('a user is connected');
-});
+// var http = require('http').Server(app);
+// var io = require('socket.io')(http);
+// io.on('connection', () =>{
+//     console.log('a user is connected');
+// });
 
 var multer = require('multer');
 var storage = multer.diskStorage({
@@ -66,7 +67,7 @@ router.get('/admin', loggedInOnly, function (req, res) {
     });
 });
 
-router.post('/admin', function (req, res) {
+router.post('/admin', loggedInOnly, function (req, res) {
     var about = req.body.text;
     Info.findOne({}, function (err, info) {
         info.about = about;
@@ -76,7 +77,6 @@ router.post('/admin', function (req, res) {
         } else {
             res.json({text: about});
         }
-
     });
 });
 
@@ -201,14 +201,17 @@ router.post('/addSection', upload.array('file', 50), loggedInOnly, async (req, r
     res.redirect('/admin');
 });
 
+
 router.get('/editSection/:id', loggedInOnly, function (req, res) {
     var nav = false;
     const id = req.params.id;
-    Sections.findById(id).populate('pictures').exec(function (err, section) {
+    Sections.findById(id).populate('cover').populate('pictures').exec(function (err, section) {
         if (err) {
             next(err);
         }
         else {
+            console.log(section.cover._id);
+
             Info.findOne({}, function (err, info) {
                 if (err) {
                     next(err);
@@ -216,7 +219,6 @@ router.get('/editSection/:id', loggedInOnly, function (req, res) {
                 res.render('editSection', { nav: nav, info: info, section: section, authorized: true});
             });
         }
-
     })
 });
 
@@ -224,56 +226,49 @@ router.get('/editSection/:id', loggedInOnly, function (req, res) {
 router.put('/editSection/:id', upload.array('file', 50), loggedInOnly, async (req, res, next) => {
     const id = req.params.id;
     const cover = Number(req.body.cover);
-    var section = {
-        name: req.body.sectionName,
-        description: req.body.sectionDescription,
-        pictures: await Promise.all(
+    Sections.findById(id, async (err, section) => {
+        section.name = req.body.sectionName;
+        section.description = req.body.sectionDescription;
+        section.pictures = section.pictures.concat(await Promise.all(
             req.files.map((file, i) => {
-            const pic = new Pictures({
-                name: req.body.picname[i],
-                imagePath: file.path
-            });
-            if (i === cover) {
-                section.cover = pic;
-            }
-            pic.section = section;
-            return pic.save();
-        })),
-    };
-    Sections.findByIdAndUpdate(id, section, {new : true}, function (err, sec) {
-       // section.save();
-       res.redirect('/portfolio');
+                const pic = new Pictures({
+                    name: req.body.picname[i],
+                    imagePath: file.path
+                });
+                // if (i === cover) {
+                //     section.cover = pic;
+                // }
+                pic.section = section;
+                return pic.save();
+            })));
+        section.cover = section.pictures[cover];
+        await section.save();
+        res.redirect('/admin');
     });
-    //
-    // Sections.findById(id, async (err, section) => {
-    //     section.name = req.body.sectionName;
-    //     section.description = req.body.sectionDescription;
-    //
-    //     section.pictures = await Promise.all(
-    //         req.files.map((file, i) => {
-    //             const pic = new Pictures({
-    //                 name: req.body.picname[i],
-    //                 imagePath: file.path
-    //             });
-    //             if (i === cover) {
-    //                 section.cover = pic;
-    //             }
-    //             pic.section = section;
-    //             return pic.save();
-    //         }));
-    //     await section.save();
-    //     res.redirect('/admin');
-    // });
+});
+
+
+router.delete('/deleteImage/:id', loggedInOnly, function (req, res) {
+    Pictures.findByIdAndRemove(req.params.id, function (err, pics) {
+        if (err) {
+            console.log(err);
+            res.json({success: false, error: err});
+        } else {
+            res.json({success: true});
+        }
+    })
 });
 
 //Destroy
-router.delete('/deleteSection/:id', function (req, res) {
-    Sections.findByIdAndRemove(req.params.id, function (err) {
-        if (err) {
-            console.log(err);
-        } else {
-            res.redirect('/portfolio');
-        }
+router.delete('/deleteSection/:id', loggedInOnly, function (req, res) {
+    Sections.findByIdAndRemove(req.params.id, function (err, section) {
+       Pictures.remove({section: section}, function (err, pics) {
+            if (err) {
+                console.log(err);
+            } else {
+                res.redirect('/portfolio');
+            }
+        })
     })
 });
 

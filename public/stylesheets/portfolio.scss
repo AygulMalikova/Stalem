@@ -13,8 +13,9 @@
     width: 100%;
   }
   .navbar-fixed-left{
+    top: 100px;
     margin-bottom: 100px;
-    //position: fixed;
+    position: fixed;
     opacity: 1;
 
     .menu {
@@ -50,6 +51,7 @@
         background-color: rgba(0,0,0,0);
         border: none;
         color: #f5f1a9;
+        pointer-events: none;
       }
     }
   }
@@ -119,6 +121,7 @@ section.awSlider img {
   bottom: 0;
   z-index: 2;
 }
+
 
 section.awSlider:hover > img{
   transform: scale(1.1);
@@ -263,7 +266,7 @@ hr {
 .ver {
   min-height: 70px;
   max-height: 70%;
-  width: 1px;
+  min-width: 3px;
   border: 0;
   border-top: 1px solid rgba(0,0,0,.1);
   background: linear-gradient(to top, rgba(233, 233, 233, 0), rgba(233, 233, 233, 0.75), rgba(233, 233, 233, 0));
@@ -286,7 +289,4 @@ hr {
   width: 45px;
   margin-left: 30px;
   margin-bottom: 10px;
-}
-.editSection.active {
-
 }

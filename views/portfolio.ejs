@@ -36,7 +36,7 @@
 <div class="content portfolio container-fluid">
     <div class="row">
         <div class="col col-3">
-            <div class="navbar-fixed-left">
+            <div class="navbar-fixed-left ">
                 <ul class="nav nav-tabs menu" role="tablist">
                     <% sections.forEach(function (section) { %>
                         <li class="nav-item">
@@ -130,27 +130,27 @@
                                             </div>
 
 
-                                            <div class="form">
-                                                <form action="/addComment/<%= section.pictures[current]._id%>"
-                                                      class="form form-inline" method="POST" autocomplete="off">
-                                                    <div class="group comment">
-                                                        <textarea type="text" name="text" required></textarea>
-                                                        <span class="highlight"></span>
-                                                        <span class="bar"></span>
-                                                        <label>Comment</label>
-                                                    </div>
+                                            <div class="form form-inline">
+                                                <div class="group comment">
+                                                    <textarea type="text" id="commentText" name="text" required></textarea>
+                                                    <span class="highlight"></span>
+                                                    <span class="bar"></span>
+                                                    <label>Comment</label>
+                                                </div>
 
-                                                    <div class="group author">
-                                                        <input value="" type="text" name="author" required>
-                                                        <span class="highlight"></span>
-                                                        <span class="bar"></span>
-                                                        <label>Author</label>
-                                                    </div>
+                                                <div class="group author">
+                                                    <input value="" type="text" id = "author" name="author" maxlength="30" required>
+                                                    <span class="highlight"></span>
+                                                    <span class="bar"></span>
+                                                    <label>Author</label>
+                                                </div>
 
-                                                    <div class="form-group">
-                                                        <button>Add</button>
-                                                    </div>
-                                                </form>
+                                                <div class="form-group">
+                                                    <button class="addComment"
+                                                            data-action="/addComment/<%= section.pictures[current]._id%>">
+                                                        Add
+                                                    </button>
+                                                </div>
                                             </div>
                                         </div>
                                     <% } %>

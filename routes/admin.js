@@ -7,12 +7,6 @@ var Sections = require('../models/section');
 var Info = require('../models/info');
 var Comments = require('../models/comment');
 
-var app = express();
-// var http = require('http').Server(app);
-// var io = require('socket.io')(http);
-// io.on('connection', () =>{
-//     console.log('a user is connected');
-// });
 
 var multer = require('multer');
 var storage = multer.diskStorage({
@@ -23,6 +17,7 @@ var storage = multer.diskStorage({
         cb(null, Date.now() + '-' + file.originalname);
     }
 });
+
 var upload = multer({ storage: storage });
 
 // Authentication Middleware
@@ -36,6 +31,7 @@ const loggedOutOnly = (req, res, next) => {
     else res.redirect("/");
 };
 
+/* Get login page */
 router.get('/login', function(req, res) {
     var nav = false;
     Info.findOne({}, function (err, info) {
@@ -46,7 +42,7 @@ router.get('/login', function(req, res) {
     })
 });
 
-
+/*Log in*/
 router.post('/login',
     passport.authenticate('local'),
     function(req, res) {
@@ -67,6 +63,7 @@ router.get('/admin', loggedInOnly, function (req, res) {
     });
 });
 
+/* Change info */
 router.post('/admin', loggedInOnly, function (req, res) {
     var about = req.body.text;
     Info.findOne({}, function (err, info) {
@@ -86,6 +83,7 @@ router.get('/register', function(req, res) {
         res.render('register', {info: info});
     });
 });
+
 
 router.post("/register", (req, res, next) => {
     const { username, password } = req.body;
@@ -116,7 +114,8 @@ router.get('/settings', loggedInOnly, function (req, res) {
                 res.render('settings', {
                     admin: admin,
                     nav: nav,
-                    info: info
+                    info: info,
+                    authorized: true
                 });
             });
         }
@@ -162,6 +161,8 @@ router.post('/settings', loggedInOnly, function (req, res) {
     });
 });
 
+
+/*Log out */
 router.get('/logout', loggedInOnly, function(req, res){
     req.logout();
     res.redirect('/');
@@ -177,7 +178,6 @@ router.get('/addSection', loggedInOnly, function (req, res) {
 
 
 router.post('/addSection', upload.array('file', 50), loggedInOnly, async (req, res, next) => {
-    var nav = false;
     const cover = Number(req.body.cover);
     const section = new Sections({
         name: req.body.sectionName,
@@ -235,9 +235,6 @@ router.put('/editSection/:id', upload.array('file', 50), loggedInOnly, async (re
                     name: req.body.picname[i],
                     imagePath: file.path
                 });
-                // if (i === cover) {
-                //     section.cover = pic;
-                // }
                 pic.section = section;
                 return pic.save();
             })));

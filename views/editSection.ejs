@@ -52,21 +52,22 @@
                             <div class="col-lg-4 imgUp" data-id="<%= section.pictures[i]._id%>">
                                 <div class="imagePreview">
                                     <input type="hidden" class="img_path" name="img_path" value="<%= section.pictures[i].imagePath%>">
-                                <img src="/public/images/pic.svg" style="opacity: 0" alt="">
+                                <img src="/<%= section.pictures[i].imagePath%>" style="opacity: 1; width: 100%" alt="">
                                 </div>
                                 <label class="btn btn-primary">
-                                Upload<input type="file" name = "file" accept="image/*" class="uploadFile img" value="<%= section.pictures[i].imagePath%>"
+                                Upload<input type="file" name = "file" accept="image/*" class="uploadFile img"
                         style="width: 0px;height: 0px;overflow: scroll;">
                                 </label>
                                 <i class="fa fa-times del"></i>
 
                                 <div class="group file">
+
                                 <input type="hidden" name="pic_id" value="<%= section.pictures[i]._id%>">
                                 <input class="file" type="text" name="picname" value="<%= section.pictures[i].name%>">
                                 <span class="highlight file"></span>
                                 <span class="bar file"></span>
                                 <label class="file">Name</label>
-                                    <% if (section.pictures[i]._id == section.cover._id) { %>
+                                    <% if ((section.pictures[i]._id).toString().localeCompare((section.cover._id).toString()) == 0) { %>
                                         <input class="cover" type="radio" name="cover" value="<%= i%>" checked>
                                     <%} else {%>
                                         <input class="cover" type="radio" name="cover" value="<%= i%>">

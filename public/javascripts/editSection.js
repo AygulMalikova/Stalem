@@ -1,13 +1,11 @@
 let counter = $('.imgUp').length - 1;
 
-for (let i = 0; i <= counter; i++) {
-    let img_path = document.getElementsByClassName('img_path')[i].value;
-    console.log(img_path);
-    document.getElementsByClassName('imagePreview')[i].setAttribute("background-image", "url(" + img_path + ")");
-    document.getElementsByClassName('imagePreview')[i].setAttribute("background-image", "url(" + img_path + ")");
-}
+// for (let i = 0; i <= counter; i++) {
+//     let img_path = document.getElementsByClassName('img_path')[i].value;
+//     console.log(img_path);
+//     document.getElementsByClassName('imagePreview')[i].setAttribute("background-image", "url(" + "'" +'/' + img_path + "'" +")");
+// }
 
-console.log(counter);
 
 $(".imgAdd").click(function(){
     if (counter < 50) {
@@ -28,7 +26,6 @@ $(".imgAdd").click(function(){
             '<label class="file">Name</label>\n' +
             '<input class="cover" type="radio" name = "cover" value="' + counter + '">\n' +
             '</div>');
-        console.log(counter);
     }
 
 });

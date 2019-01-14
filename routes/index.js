@@ -4,7 +4,6 @@ var Pictures = require('../models/picture');
 var Sections = require('../models/section');
 var Comments = require('../models/comment');
 var Info = require('../models/info');
-const queryString = require('query-string');
 
 
 /* GET home page. */
@@ -42,7 +41,6 @@ router.get('/', function(req, res, next) {
 
 router.get('/portfolio', function (req, res, next) {
     var nav = true;
-    // console.log(location.hash);
     Sections.find({}).populate({
             path: 'pictures',
             populate: {

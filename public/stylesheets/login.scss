@@ -1,13 +1,11 @@
 .content {
   min-height: calc(100vh - 140px); /* will cover the 100% of viewport */
-
   position: relative;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   padding-bottom: 0; /* height of your footer */
-
 }
 
 .header {

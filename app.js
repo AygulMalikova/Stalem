@@ -95,7 +95,7 @@ passport.use("local", local);
 
 
 // Database
-mongoose.connect('mongodb://localhost:27017/stalem', { useNewUrlParser: true });
+mongoose.connect('mongodb://mongodb:27017/stalem', { useNewUrlParser: true });
 
 // app.use(session({ secret: 'cats' }));
 // app.use(passport.initialize());

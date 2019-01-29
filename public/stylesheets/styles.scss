@@ -6,6 +6,7 @@
   background: -ms-radial-gradient(center, ellipse cover, $startColor $startPos,$endColor $endPos);
   background: radial-gradient(ellipse at center, $startColor $startPos,$endColor $endPos);
 }
+@import url('https://fonts.googleapis.com/css?family=Dancing+Script');
 
 html, body{
   min-height: 100%;

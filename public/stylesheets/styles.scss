@@ -28,6 +28,9 @@ html, body{
     text-decoration: none;
   }
 }
+.hero {
+  height: 100vh;
+}
 
 img.bg {
   min-height: 100vh;
@@ -144,6 +147,7 @@ body > * {
     }
     p{
       font-family: "Roboto", sans-serif;
+      text-align: center;
     }
   }
 
@@ -156,6 +160,7 @@ body > * {
     box-shadow: 10px 10px 30px  rgba(0,0,0,0.2);
 
     img {
+      min-height: 200px;
       width: 100%;
       height: auto;
     }
@@ -391,3 +396,48 @@ button:focus, button:hover {
   outline: none;
 }
 
+@media (max-width: 576px) {
+  html, body {
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+  img.bg {
+    position: fixed;
+  }
+  .container {
+    height: 90vh;
+  }
+  .container.icons {
+    height: auto;
+    img {
+      min-width: 100px;
+      margin: 30px;
+    }
+  }
+  .row {
+    height: 100%;
+  }
+  .frame {
+    border: solid 8px #eee;
+  }
+  #content {
+    padding: 100px 0;
+    h1.stalem {
+      line-height: 7rem;
+      font-size: 7rem;
+    }
+    h3 {
+      font-size: 3rem;
+      color: #f1e48d;
+    }
+  }
+  hr {
+    margin-top: 4rem;
+    margin-bottom: 4rem;
+  }
+}
+@media (max-width: 770px) {
+  .frame {
+    border: solid 8px #eee;
+  }
+}

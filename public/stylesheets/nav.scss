@@ -95,7 +95,7 @@ header {
     flex-direction: column;
     transition: opacity 1s;
     position: relative;
-    margin: auto;
+   //margin: auto;
     align-items: center;
 
     .menu {
@@ -195,5 +195,11 @@ body.open {
   .content.container-fluid {
     z-index: -500;
     opacity: 0.2;
+  }
+}
+@media (max-width: 576px) {
+  .container.nav-menu .navbar-nav .menu li {
+    font-size: 5rem !important;
+    line-height: 5rem ;
   }
 }

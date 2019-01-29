@@ -8,6 +8,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="/public/stylesheets/styles.css">
     <link rel="stylesheet" href="/public/stylesheets/nav.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
 </head>
 <body>
 
@@ -50,11 +51,11 @@
 
             if (i % 2 == 0) { %>
                 <div class="row item">
-                    <div class="caption col-sm-6">
+                    <div class="caption col-md-6">
                         <a href="/portfolio#<%=  section.name.replace(" ", "")%>"><h2><%= section.name %> </h2></a>
                         <p><%= section.description %> </p>
                     </div>
-                    <div class="frame image col-sm-5 offset-sm-1">
+                    <div class="frame image col-md-5 offset-sm-1">
                         <a href="/portfolio/#<%=  section.name.replace(" ", "")%>">
                             <% if (section.cover) {%>
                                 <img src="/<%= section.cover.imagePath%>">
@@ -65,14 +66,14 @@
 
             <%} else if (i % 2 != 0) {%>
                 <div class="row item">
-                    <div class="frame image col-sm-5">
+                    <div class="frame image col-md-5">
                         <a href="/portfolio/#<%=  section.name.replace(" ", "")%>">
                             <% if (section.cover) {%>
                                 <img src="/<%= section.cover.imagePath%>">
                             <%}%>
                         </a>
                     </div>
-                    <div class="caption col-sm-6 offset-sm-1">
+                    <div class="caption col-md-6 offset-sm-1">
                         <a href="/portfolio/#<%=  section.name.replace(" ", "")%>"><h2><%= section.name %> </h2></a>
                         <p><%= section.description %> </p>
                     </div>

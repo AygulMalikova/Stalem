@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="/public/stylesheets/login.css">
     <link rel="stylesheet" href="/public/stylesheets/nav.css">
     <link rel="stylesheet" href="/public/stylesheets/portfolio.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
 
@@ -35,7 +36,7 @@
 
 <div class="content portfolio container-fluid">
     <div class="row">
-        <div class="col col-3">
+        <div class="col col-md-3 col-sm-12">
             <div class="navbar-fixed-left ">
                 <ul class="nav nav-tabs menu" role="tablist">
                     <% sections.forEach(function (section) { %>
@@ -64,7 +65,7 @@
             </div>
         </div>
 
-        <div class="col col-9">
+        <div class="col col-md-9 col-sm-12">
             <div class="tab-content" id="portfolioTabs">
                 <% sections.forEach(function (section) { %>
                     <div class="tab-pane" id="<%= section.name.replace(" ", "") %>" role="tabpanel" aria-labelledby="<%= section.name.replace(" ", "") %>-tab">
